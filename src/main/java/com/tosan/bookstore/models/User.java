@@ -29,4 +29,54 @@ public class User {
         private LocalDateTime lastLoginDate;
 
         private boolean active;
+
+        public User() {
+        }
+
+        public User(String username, String password, String name, String email, UserTypes userTypes) {
+                this.username = username;
+                this.password = password;
+                this.name = name;
+                this.email = email;
+                this.userTypes = userTypes;
+                this.creationDate = LocalDateTime.now();
+                this.lastLoginDate = null;
+                this.active = true;
+        }
+
+        public long getId() {
+                return id;
+        }
+
+        public String getUsername() {
+                return username;
+        }
+
+        public String getPassword() {
+                return password;
+        }
+
+        public String getName() {
+                return name;
+        }
+
+        public String getEmail() {
+                return email;
+        }
+
+        public UserTypes getUserTypes() {
+                return userTypes;
+        }
+
+        public LocalDateTime getCreationDate() {
+                return creationDate;
+        }
+
+        public LocalDateTime getLastLoginDate() {
+                return lastLoginDate;
+        }
+
+        public boolean isActive() {
+                return active;
+        }
 }

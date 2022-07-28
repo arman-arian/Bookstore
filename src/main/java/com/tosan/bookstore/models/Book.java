@@ -19,7 +19,9 @@ public class Book {
     @Column(length=20)
     private String isbn;
 
-    private long price;
+    private long buyPrice;
+
+    private long rentPrice;
 
     @Column(length=200)
     private String pubName;
@@ -42,4 +44,84 @@ public class Book {
 
     @Column(length=40)
     private String modifiedBy;
+
+    public Book() {
+    }
+
+    public Book(String title, String author, String isbn, long buyPrice, long rentPrice, String pubName, LocalDate pubDate, int pubYear, String description, String createdBy) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.buyPrice = buyPrice;
+        this.rentPrice = rentPrice;
+        this.pubName = pubName;
+        this.pubDate = pubDate;
+        this.pubYear = pubYear;
+        this.description = description;
+        this.isDeleted = false;
+        this.createdOn = LocalDateTime.now();
+        this.createdBy = createdBy;
+        this.modifiedOn = null;
+        this.modifiedBy = null;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public long getBuyPrice() {
+        return buyPrice;
+    }
+
+    public long getRentPrice() {
+        return rentPrice;
+    }
+
+    public String getPubName() {
+        return pubName;
+    }
+
+    public LocalDate getPubDate() {
+        return pubDate;
+    }
+
+    public int getPubYear() {
+        return pubYear;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public LocalDateTime getModifiedOn() {
+        return modifiedOn;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
 }
