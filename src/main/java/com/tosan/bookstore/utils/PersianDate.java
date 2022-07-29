@@ -3,12 +3,17 @@ package com.tosan.bookstore.utils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @SuppressWarnings("DuplicatedCode")
-public class PersianDate {
+public class PersianDate implements Serializable, Comparable<PersianDate> {
     private final LocalDate _dateTime;
+
+    @Serial
+    private static final long serialVersionUID=1L;
 
     public PersianDate()
     {
@@ -46,6 +51,11 @@ public class PersianDate {
     @Override
     public String toString() {
         return toString("d");
+    }
+
+    @Override
+    public int compareTo(@NotNull PersianDate o) {
+        return _dateTime.compareTo(o._dateTime);
     }
 
     public String toString(String format) {
@@ -140,4 +150,6 @@ public class PersianDate {
         }
         return out;
     }
+
+
 }

@@ -1,7 +1,8 @@
 package com.tosan.bookstore.daos;
 
 import com.tosan.bookstore.models.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
+
 }

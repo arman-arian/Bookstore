@@ -6,14 +6,16 @@ import javax.persistence.*;
 @Table(name = "UserBooks ")
 public class UserBook {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
-    @Column(nullable = false)
-    private Long bookId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "bookId", nullable = false)
+    private Book book;
 
     @Column(nullable = false)
     private Integer beginDate;
@@ -23,24 +25,14 @@ public class UserBook {
     public UserBook() {
     }
 
-    public UserBook(Long id, Long userId, Long bookId, Integer beginDate, Integer toDate) {
+    public UserBook(Long id, Integer beginDate, Integer toDate) {
         this.id = id;
-        this.userId = userId;
-        this.bookId = bookId;
         this.beginDate = beginDate;
         this.toDate = toDate;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public Long getBookId() {
-        return bookId;
     }
 
     public Integer getBeginDate() {

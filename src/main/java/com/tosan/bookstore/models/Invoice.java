@@ -2,16 +2,18 @@ package com.tosan.bookstore.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "Invoices")
 public class Invoice {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     @Column(nullable = false)
     private LocalDate createdDate;
@@ -29,12 +31,14 @@ public class Invoice {
     @Column(length = 200)
     private String description;
 
+    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<InvoiceItem> invoiceItems;
+
     public Invoice() {
     }
 
-    public Invoice(Long id, Long userId, String description) {
+    public Invoice(Long id, String description) {
         this.id = id;
-        this.userId = userId;
         this.createdDate = LocalDate.now();
         this.issuedDate = null;
         this.paidDate = null;

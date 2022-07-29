@@ -7,14 +7,16 @@ import java.time.LocalDateTime;
 @Table(name = "InvoiceItems")
 public class InvoiceItem {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long invoiceId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "invoiceId", nullable = false)
+    private Invoice invoice;
 
-    @Column(nullable = false)
-    private Long bookId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "bookId", nullable = false)
+    private Book book;
 
     private Integer quantity;
 

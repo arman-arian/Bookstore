@@ -8,7 +8,7 @@ import java.time.*;
 @Table(name = "Books")
 public class Book {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 200, nullable = false, unique = true)
@@ -17,7 +17,7 @@ public class Book {
     @Column(length = 400, nullable = false)
     private String author;
 
-    @Column(length = 20)
+    @Column(length = 20, unique = true)
     private String isbn;
 
     @Column(nullable = false)

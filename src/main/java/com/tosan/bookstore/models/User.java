@@ -2,12 +2,13 @@ package com.tosan.bookstore.models;
 
 import javax.persistence.*;
 import java.time.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
 public class User {
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
         @Column(length = 40, nullable = false, unique = true)
@@ -32,6 +33,9 @@ public class User {
 
         @Column(nullable = false)
         private Boolean active;
+
+        @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+        private Set<UserBook> userBooks;
 
         public User() {
         }
