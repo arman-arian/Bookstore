@@ -10,16 +10,16 @@ public class User {
         @GeneratedValue
         private Long id;
 
-        @Column(length=40, nullable = false, unique = true)
+        @Column(length = 40, nullable = false, unique = true)
         private String username;
 
-        @Column(length=40, nullable = false)
+        @Column(length = 40, nullable = false)
         private String password;
 
-        @Column(length=80)
+        @Column(length = 80)
         private String name;
 
-        @Column(length=320)
+        @Column(length = 320)
         private String email;
 
         @Column(nullable = false)

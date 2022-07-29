@@ -26,7 +26,7 @@ public class Invoice {
     @Column(nullable = false)
     private InvoiceState state;
 
-    @Column(length=200)
+    @Column(length = 200)
     private String description;
 
     public Invoice() {

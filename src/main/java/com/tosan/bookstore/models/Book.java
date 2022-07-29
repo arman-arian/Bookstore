@@ -11,13 +11,13 @@ public class Book {
     @GeneratedValue
     private Long id;
 
-    @Column(length=200, nullable = false, unique = true)
+    @Column(length = 200, nullable = false, unique = true)
     private String title;
 
-    @Column(length=400, nullable = false)
+    @Column(length = 400, nullable = false)
     private String author;
 
-    @Column(length=20)
+    @Column(length = 20)
     private String isbn;
 
     @Column(nullable = false)
@@ -26,26 +26,26 @@ public class Book {
     @Column(precision = 1, scale = 2)
     private BigDecimal rentRate;
 
-    @Column(length=200)
+    @Column(length = 200)
     private String pubName;
 
     private LocalDate pubDate;
 
     private Integer pubYear;
 
-    @Column(length=800)
+    @Column(length = 400)
     private String description;
 
     private Boolean isDeleted;
 
     private LocalDateTime createdOn;
 
-    @Column(length=40)
+    @Column(length = 40)
     private String createdBy;
 
     private LocalDateTime modifiedOn;
 
-    @Column(length=40)
+    @Column(length = 40)
     private String modifiedBy;
 
     public Book() {

@@ -21,7 +21,7 @@ public class InvoiceItem {
     @Column(nullable = false)
     private Long price;
 
-    @Column(length=200)
+    @Column(length = 200)
     private String description;
 
     private LocalDateTime lastChanged;
