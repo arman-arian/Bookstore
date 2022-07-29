@@ -150,6 +150,4 @@ public class PersianDate implements Serializable, Comparable<PersianDate> {
         }
         return out;
     }
-
-
 }
