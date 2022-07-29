@@ -22,18 +22,21 @@ public class User {
         @Column(length=320)
         private String email;
 
-        private UserTypes userTypes;
+        @Column(nullable = false)
+        private UserType userTypes;
 
+        @Column(nullable = false)
         private LocalDateTime creationDate;
 
         private LocalDateTime lastLoginDate;
 
+        @Column(nullable = false)
         private boolean active;
 
         public User() {
         }
 
-        public User(String username, String password, String name, String email, UserTypes userTypes) {
+        public User(String username, String password, String name, String email, UserType userTypes) {
                 this.username = username;
                 this.password = password;
                 this.name = name;
@@ -64,7 +67,7 @@ public class User {
                 return email;
         }
 
-        public UserTypes getUserTypes() {
+        public UserType getUserTypes() {
                 return userTypes;
         }
 

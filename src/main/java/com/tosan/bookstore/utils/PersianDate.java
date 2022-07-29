@@ -6,9 +6,9 @@ import org.jetbrains.annotations.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("DuplicatedCode")
 public class PersianDate {
-    private LocalDate _dateTime;
+    private final LocalDate _dateTime;
 
     public PersianDate()
     {
@@ -62,13 +62,19 @@ public class PersianDate {
     }
 
     @Contract(" -> new")
+    private @NotNull LocalDate toLocalDate()
+    {
+        return LocalDate.of(_dateTime.getYear(), _dateTime.getMonthValue(), _dateTime.getDayOfMonth());
+    }
+
+    @Contract(" -> new")
     public static @NotNull PersianDate now()
     {
         return new PersianDate(LocalDate.now());
     }
 
     /**
-     * Author: JDF.SCR.IR =>> Download Full Version :  http://jdf.scr.ir/jdf License: GNU/LGPL _ Open
+     * Author: JDF.SCR.IR =>> Download Full Version :  <a href="http://jdf.scr.ir/jdf">...</a> License: GNU/LGPL _ Open
      * Source & Free :: Version: 2.80 : [2020=1399]
      */
     private static int @NotNull [] gregorian_to_jalali(int gy, int gm, int gd) {
@@ -101,7 +107,7 @@ public class PersianDate {
     }
 
     /**
-     * Author: JDF.SCR.IR =>> Download Full Version :  http://jdf.scr.ir/jdf License: GNU/LGPL _ Open
+     * Author: JDF.SCR.IR =>> Download Full Version :  <a href="http://jdf.scr.ir/jdf">...</a> License: GNU/LGPL _ Open
      * Source & Free :: Version: 2.80 : [2020=1399]
      */
     private static int @NotNull [] jalali_to_gregorian(int jy, int jm, int jd) {

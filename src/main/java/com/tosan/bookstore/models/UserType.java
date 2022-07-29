@@ -1,6 +1,6 @@
 package com.tosan.bookstore.models;
 
-public enum UserTypes {
+public enum UserType {
     User,
     Member,
     Librarian
