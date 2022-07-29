@@ -8,7 +8,7 @@ import java.time.*;
 public class User {
         @Id
         @GeneratedValue
-        private long id;
+        private Long id;
 
         @Column(length=40, nullable = false, unique = true)
         private String username;
@@ -31,7 +31,7 @@ public class User {
         private LocalDateTime lastLoginDate;
 
         @Column(nullable = false)
-        private boolean active;
+        private Boolean active;
 
         public User() {
         }
@@ -47,7 +47,7 @@ public class User {
                 this.active = true;
         }
 
-        public long getId() {
+        public Long getId() {
                 return id;
         }
 
@@ -79,7 +79,7 @@ public class User {
                 return lastLoginDate;
         }
 
-        public boolean isActive() {
+        public Boolean isActive() {
                 return active;
         }
 }

@@ -1,6 +1,7 @@
 package com.tosan.bookstore.models;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.*;
 
 @Entity
@@ -8,7 +9,7 @@ import java.time.*;
 public class Book {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(length=200, nullable = false, unique = true)
     private String title;
@@ -19,21 +20,23 @@ public class Book {
     @Column(length=20)
     private String isbn;
 
-    private long buyPrice;
+    @Column(nullable = false)
+    private Long buyPrice;
 
-    private long rentPrice;
+    @Column(precision = 1, scale = 2)
+    private BigDecimal rentRate;
 
     @Column(length=200)
     private String pubName;
 
     private LocalDate pubDate;
 
-    private int pubYear;
+    private Integer pubYear;
 
     @Column(length=800)
     private String description;
 
-    private boolean isDeleted;
+    private Boolean isDeleted;
 
     private LocalDateTime createdOn;
 
@@ -48,12 +51,14 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, String isbn, long buyPrice, long rentPrice, String pubName, LocalDate pubDate, int pubYear, String description, String createdBy) {
+    public Book(String title, String author, String isbn, Long buyPrice, BigDecimal rentRate,
+                String pubName, LocalDate pubDate, Integer pubYear, String description,
+                String createdBy) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.buyPrice = buyPrice;
-        this.rentPrice = rentPrice;
+        this.rentRate = rentRate;
         this.pubName = pubName;
         this.pubDate = pubDate;
         this.pubYear = pubYear;
@@ -65,7 +70,7 @@ public class Book {
         this.modifiedBy = null;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -81,12 +86,12 @@ public class Book {
         return isbn;
     }
 
-    public long getBuyPrice() {
+    public Long getBuyPrice() {
         return buyPrice;
     }
 
-    public long getRentPrice() {
-        return rentPrice;
+    public BigDecimal getRentRate() {
+        return rentRate;
     }
 
     public String getPubName() {
@@ -97,7 +102,7 @@ public class Book {
         return pubDate;
     }
 
-    public int getPubYear() {
+    public Integer getPubYear() {
         return pubYear;
     }
 
@@ -105,7 +110,7 @@ public class Book {
         return description;
     }
 
-    public boolean isDeleted() {
+    public Boolean isDeleted() {
         return isDeleted;
     }
 

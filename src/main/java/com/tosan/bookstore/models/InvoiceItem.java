@@ -8,18 +8,18 @@ import java.time.LocalDateTime;
 public class InvoiceItem {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
-    private long invoiceId;
+    private Long invoiceId;
 
     @Column(nullable = false)
-    private long bookId;
+    private Long bookId;
 
     private Integer quantity;
 
     @Column(nullable = false)
-    private long price;
+    private Long price;
 
     @Column(length=200)
     private String description;

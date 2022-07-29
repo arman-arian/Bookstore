@@ -7,13 +7,13 @@ import javax.persistence.*;
 public class UserBook {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
-    private long userId;
+    private Long userId;
 
     @Column(nullable = false)
-    private long bookId;
+    private Long bookId;
 
     @Column(nullable = false)
     private Integer beginDate;
@@ -23,7 +23,7 @@ public class UserBook {
     public UserBook() {
     }
 
-    public UserBook(long id, long userId, long bookId, int beginDate, int toDate) {
+    public UserBook(Long id, Long userId, Long bookId, Integer beginDate, Integer toDate) {
         this.id = id;
         this.userId = userId;
         this.bookId = bookId;
@@ -31,23 +31,23 @@ public class UserBook {
         this.toDate = toDate;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public long getBookId() {
+    public Long getBookId() {
         return bookId;
     }
 
-    public int getBeginDate() {
+    public Integer getBeginDate() {
         return beginDate;
     }
 
-    public int getToDate() {
+    public Integer getToDate() {
         return toDate;
     }
 }
