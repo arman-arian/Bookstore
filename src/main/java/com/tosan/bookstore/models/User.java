@@ -24,7 +24,7 @@ public class User {
         private String email;
 
         @Column(nullable = false)
-        private UserType userTypes;
+        private UserType userType;
 
         @Column(nullable = false)
         private LocalDateTime creationDate;
@@ -45,7 +45,7 @@ public class User {
                 this.password = password;
                 this.name = name;
                 this.email = email;
-                this.userTypes = userTypes;
+                this.userType = userTypes;
                 this.creationDate = LocalDateTime.now();
                 this.lastLoginDate = null;
                 this.active = true;
@@ -72,7 +72,7 @@ public class User {
         }
 
         public UserType getUserTypes() {
-                return userTypes;
+                return userType;
         }
 
         public LocalDateTime getCreationDate() {
