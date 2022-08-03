@@ -1,14 +1,14 @@
-package com.tosan.bookstore;
+package com.tosan.bookstore.dtos;
 
-public class LoginDto {
+public class LoginRequestDto {
     private String username;
 
     private String password;
 
-    public LoginDto() {
+    public LoginRequestDto() {
     }
 
-    public LoginDto(String username, String password) {
+    public LoginRequestDto(String username, String password) {
         this.username = username;
         this.password = password;
     }
