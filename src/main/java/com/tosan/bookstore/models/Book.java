@@ -129,4 +129,9 @@ public class Book {
     public String getModifiedBy() {
         return modifiedBy;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s by %s", getTitle(), getAuthor());
+    }
 }

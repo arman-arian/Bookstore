@@ -4,7 +4,7 @@ import com.tosan.bookstore.models.UserType;
 
 import java.time.LocalDateTime;
 
-public class LoginResponseDto {
+public class UserDto {
     private Long id;
 
     private String username;
@@ -19,11 +19,11 @@ public class LoginResponseDto {
 
     private LocalDateTime lastLoginDate;
 
-    public LoginResponseDto(){
+    public UserDto(){
 
     }
 
-    public LoginResponseDto(Long id, String username, String name, String email, UserType userType, LocalDateTime creationDate, LocalDateTime lastLoginDate) {
+    public UserDto(Long id, String username, String name, String email, UserType userType, LocalDateTime creationDate, LocalDateTime lastLoginDate) {
         this.id = id;
         this.username = username;
         this.name = name;
