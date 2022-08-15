@@ -1,6 +1,6 @@
 package com.tosan.bookstore.models;
 
-public enum InvoiceState {
+public enum InvoiceState implements BaseEnum {
     Draft("پیش نویس"),
     Deleted("حذف شده"),
     Issued("صادر شده"),

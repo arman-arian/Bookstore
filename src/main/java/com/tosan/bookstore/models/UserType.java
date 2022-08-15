@@ -1,6 +1,6 @@
 package com.tosan.bookstore.models;
 
-public enum UserType {
+public enum UserType implements BaseEnum {
     User("کاربر عادی"),
     Member("عضو کتابخانه"),
     Librarian("کتابدار");
