@@ -1,8 +1,16 @@
 package com.tosan.bookstore.models;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class BaseEntity {
+@MappedSuperclass
+@EntityListeners({AuditingEntityListener.class})
+public class BaseEntity implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     public int getId() {
