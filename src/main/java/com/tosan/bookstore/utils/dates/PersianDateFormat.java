@@ -2,7 +2,7 @@ package com.tosan.bookstore.utils.dates;
 
 import org.jetbrains.annotations.NotNull;
 
-public class PersianDateFormat {
+public final class PersianDateFormat {
     public static String Format(int[] jDate)
     {
         return Format(jDate[0], jDate[1], jDate[2], "", "", "");

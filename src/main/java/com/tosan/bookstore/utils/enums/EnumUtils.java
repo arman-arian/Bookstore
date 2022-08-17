@@ -39,8 +39,7 @@ public final class EnumUtils {
 
     public static Map<Integer, String> GetEnumNames(Class<?> clazz) {
         Map<Integer, String> enumElementsMap = new HashMap<>();
-        try
-        {
+        try {
             for (Field field : clazz.getFields()) {
                 field.setAccessible(true);
                 System.out.println(field.getName());
@@ -49,10 +48,8 @@ public final class EnumUtils {
                         field.getName()
                 );
             }
-            return  enumElementsMap;
-        }
-        catch (Exception ex)
-        {
+            return enumElementsMap;
+        } catch (Exception ex) {
             return new HashMap<>();
         }
     }

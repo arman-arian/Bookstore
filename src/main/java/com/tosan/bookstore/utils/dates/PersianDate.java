@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @SuppressWarnings("DuplicatedCode")
-public class PersianDate implements Serializable, Comparable<PersianDate> {
+public final class PersianDate implements Serializable, Comparable<PersianDate> {
     private final LocalDate _dateTime;
 
     @Serial

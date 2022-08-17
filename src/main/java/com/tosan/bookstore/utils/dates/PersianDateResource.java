@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.DayOfWeek;
 
-public class PersianDateResource {
+public final class PersianDateResource {
     private static final String[] dayNames = {"دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه", "شنبه", "یک‌شنبه"};
 
     private static final String[] monthNames = {
