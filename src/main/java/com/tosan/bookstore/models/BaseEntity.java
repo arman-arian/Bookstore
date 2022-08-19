@@ -1,36 +1,43 @@
 package com.tosan.bookstore.models;
 
+import lombok.*;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.annotation.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class})
-public class BaseEntity implements Serializable {
+public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @Setter(AccessLevel.PROTECTED)
+    private Long id;
 
-    public int getId() {
-        return id;
-    }
+    @Version
+    private Integer version;
 
-    protected void setId(int id) {
-        this.id = id;
-    }
+    @CreatedDate
+    private LocalDateTime createdDate;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BaseEntity that = (BaseEntity) o;
-        return id == that.id;
-    }
+    @CreatedBy
+    @Column(length = 40)
+    private String createdBy;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
+
+    @LastModifiedBy
+    @Column(length = 40)
+    private String lastModifiedBy;
+
+    @Column(name = "deleted")
+    private Boolean deleted = false;
 }

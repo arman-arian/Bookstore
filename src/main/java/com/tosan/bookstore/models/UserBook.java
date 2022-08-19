@@ -1,14 +1,15 @@
 package com.tosan.bookstore.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "UserBooks ")
-public class UserBook {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+@Getter
+@Setter
+public class UserBook extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userId", nullable = false)
     private User user;
@@ -21,25 +22,4 @@ public class UserBook {
     private Integer beginDate;
 
     private Integer toDate;
-
-    public UserBook() {
-    }
-
-    public UserBook(Long id, Integer beginDate, Integer toDate) {
-        this.id = id;
-        this.beginDate = beginDate;
-        this.toDate = toDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Integer getBeginDate() {
-        return beginDate;
-    }
-
-    public Integer getToDate() {
-        return toDate;
-    }
 }

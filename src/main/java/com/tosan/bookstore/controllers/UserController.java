@@ -30,7 +30,7 @@ public class UserController {
             for(User user : users)
             {
                 UserDto userDto = new UserDto(user.getId(), user.getUsername(),user.getName(),
-                        user.getEmail(), user.getUserTypes(), user.getCreationDate(), user.getLastLoginDate());
+                        user.getEmail(), user.getUserType(), user.getCreatedDate(), user.getLastLoginDate());
 
                 userDtoList.add(userDto);
             }
@@ -53,7 +53,7 @@ public class UserController {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
 
-            if(!user.isActive())
+            if(!user.getActive())
             {
                 return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
             }
@@ -63,7 +63,7 @@ public class UserController {
             {
                 // TODO: Create JWT Token
                 UserDto userDto = new UserDto(user.getId(), user.getUsername(),user.getName(),
-                        user.getEmail(), user.getUserTypes(), user.getCreationDate(), user.getLastLoginDate());
+                        user.getEmail(), user.getUserType(), user.getCreatedDate(), user.getLastLoginDate());
 
                 return new ResponseEntity<>(userDto, HttpStatus.OK);
             }

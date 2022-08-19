@@ -1,7 +1,28 @@
 package com.tosan.bookstore.exceptions;
 
-public class GeneralException extends RuntimeException {
-    public GeneralException(String errorCode, String errorMessage, Throwable err) {
-        super(String.format("Error %s: %s", errorCode, errorMessage), err);
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public final class GeneralException extends RuntimeException {
+    private final String errorCode;
+
+    private final String errorMsg;
+
+    public GeneralException(String errorCode, String errorMsg, Throwable err) {
+        super(String.format("Error %s: %s", errorCode, errorMsg), err);
+
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
     }
+
+    public GeneralException(String errorCode, String errorMsg) {
+        super(String.format("Error %s: %s", errorCode, errorMsg));
+
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
+    }
+
+
 }

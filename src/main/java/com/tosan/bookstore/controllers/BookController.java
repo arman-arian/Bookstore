@@ -34,8 +34,8 @@ public class BookController {
                 BookDto bookDto = new BookDto(book.getId(), book.getTitle(), book.getAuthor(),
                         book.getIsbn(), book.getBuyPrice(), book.getRentRate(), book.getPubName(),
                         book.getPubDate(), book.getPubYear(), book.getDescription(),
-                        book.isDeleted(), book.getCreatedOn(), book.getCreatedBy(),
-                        book.getModifiedOn(), book.getModifiedBy());
+                        book.getDeleted(), book.getCreatedDate(), book.getCreatedBy(),
+                        book.getLastModifiedDate(), book.getLastModifiedBy());
 
                 bookDtoList.add(bookDto);
             }

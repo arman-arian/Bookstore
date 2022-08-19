@@ -1,7 +1,8 @@
 package com.tosan.bookstore.daos;
 
 import com.tosan.bookstore.models.Invoice;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
+@Repository
+public interface InvoiceRepository extends BaseRepository<Invoice, Long> {
 }

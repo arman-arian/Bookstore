@@ -1,8 +1,9 @@
 package com.tosan.bookstore.daos;
 
 import com.tosan.bookstore.models.Book;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface BookRepository extends CrudRepository<Book, Long> {
+@Repository
+public interface BookRepository extends BaseRepository<Book, Long> {
     Book findByIsbn(String isbn);
 }
