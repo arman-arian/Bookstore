@@ -36,8 +36,4 @@ public class User extends BaseEntity {
         @Lazy
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         private Set<UserBook> userBooks;
-
-        public boolean verifyPassword(String password) {
-                return this.password.equals(password);
-        }
 }
