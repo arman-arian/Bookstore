@@ -1,7 +1,6 @@
 package com.tosan.bookstore.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;

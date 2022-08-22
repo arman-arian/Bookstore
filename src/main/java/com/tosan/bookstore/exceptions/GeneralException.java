@@ -25,7 +25,7 @@ public final class GeneralException extends RuntimeException {
     }
 
     public GeneralException(String errorMsg) {
-        super(String.format("Error %s: %s", "9999", errorMsg));
+        super(String.format("Error %s", errorMsg));
 
         this.errorCode = "9999";
         this.errorMsg = errorMsg;

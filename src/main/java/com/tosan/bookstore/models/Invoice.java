@@ -1,7 +1,6 @@
 package com.tosan.bookstore.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,7 +12,7 @@ import java.util.Set;
 @Setter
 public class Invoice extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "user_Id", nullable = false)
     private User user;
 
     private LocalDate issuedDate;

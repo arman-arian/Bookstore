@@ -1,7 +1,6 @@
 package com.tosan.bookstore.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -38,7 +37,7 @@ public class Book extends BaseEntity {
     private String summary;
 
     @ManyToOne
-    @JoinColumn(name = "categoryid")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Override
