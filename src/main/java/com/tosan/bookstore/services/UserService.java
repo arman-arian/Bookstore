@@ -9,6 +9,7 @@ import com.tosan.bookstore.utils.enums.EnumUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +78,10 @@ public class UserService {
             }
 
             if (passwordEncoder.matches(inputDto.getPassword(), user.getPassword())) {
-                return modelMapper.map(user, LoginOutputDto.class);
+                var outputDto = modelMapper.map(user, LoginOutputDto.class);
+                user.setLastLoginDate(LocalDateTime.now());
+                repository.save(user);
+                return outputDto;
             } else {
                 throw new GeneralException("1002", "Invalid Username or password");
             }

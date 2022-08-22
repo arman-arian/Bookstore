@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/invoices")
 public class InvoiceController {
-    private final InvoiceRepository repository;
-
-    public InvoiceController(InvoiceRepository repository) {
-        this.repository = repository;
+    public InvoiceController() {
     }
 }

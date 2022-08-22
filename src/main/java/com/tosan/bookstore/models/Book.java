@@ -22,7 +22,7 @@ public class Book extends BaseEntity {
     private String isbn;
 
     @Column(nullable = false)
-    private Long buyPrice;
+    private Long price;
 
     @Column(precision = 1, scale = 2)
     private BigDecimal rentRate;
@@ -35,7 +35,11 @@ public class Book extends BaseEntity {
     private Integer pubYear;
 
     @Column(length = 400)
-    private String description;
+    private String summary;
+
+    @ManyToOne
+    @JoinColumn(name = "categoryid")
+    private Category category;
 
     @Override
     public String toString() {
