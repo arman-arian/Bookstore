@@ -17,8 +17,9 @@ public class UserBook extends BaseEntity {
     @JoinColumn(name = "book_Id", nullable = false)
     private Book book;
 
-    @Column(nullable = false)
+    @Column(name = "begin_date", nullable = false)
     private Integer beginDate;
 
+    @Column(name = "to_date")
     private Integer toDate;
 }

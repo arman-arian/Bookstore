@@ -24,17 +24,19 @@ public abstract class BaseEntity {
     private Integer version;
 
     @CreatedDate
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
 
     @CreatedBy
-    @Column(length = 40)
+    @Column(name = "created_by", length = 40)
     private String createdBy;
 
     @LastModifiedDate
+    @Column(name = "last_modified_date")
     private LocalDateTime lastModifiedDate;
 
     @LastModifiedBy
-    @Column(length = 40)
+    @Column(name = "last_modified_by", length = 40)
     private String lastModifiedBy;
 
     @Column(name = "deleted")

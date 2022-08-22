@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public Map<Integer, String> GetUserTypes() {
-        return EnumUtils.GetEnumDescriptions(UserType.class);
+        return EnumUtils.GetEnumNames(UserType.class);
     }
 
     public UserOutputDto GetUser(Long id) {

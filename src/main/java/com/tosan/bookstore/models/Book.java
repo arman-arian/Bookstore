@@ -20,21 +20,26 @@ public class Book extends BaseEntity {
     @Column(length = 20, unique = true)
     private String isbn;
 
-    @Column(nullable = false)
-    private Long price;
+    @Column(name = "buy_price", precision = 7, scale = 2, nullable = false)
+    private BigDecimal buyPrice;
 
-    @Column(precision = 1, scale = 2)
-    private BigDecimal rentRate;
+    @Column(name = "rent_price", precision = 7, scale = 2)
+    private BigDecimal rentPrice;
 
-    @Column(length = 200)
+    @Column(name = "pub_name", length = 200)
     private String pubName;
 
+    @Column(name = "pub_date")
     private LocalDate pubDate;
 
+    @Column(name = "pub_year")
     private Integer pubYear;
 
     @Column(length = 400)
     private String summary;
+
+    @Column(name = "image_url", length = 400)
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

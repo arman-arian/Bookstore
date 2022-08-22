@@ -24,9 +24,11 @@ public class User extends BaseEntity {
         @Column(length = 320, unique = true)
         private String email;
 
+        @Enumerated(EnumType.ORDINAL)
         @Column(nullable = false)
         private UserType userType;
 
+        @Column(name = "last_login_date")
         private LocalDateTime lastLoginDate;
 
         @Column(nullable = false)

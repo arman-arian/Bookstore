@@ -15,13 +15,16 @@ public class Invoice extends BaseEntity {
     @JoinColumn(name = "user_Id", nullable = false)
     private User user;
 
+    @Column(name = "issued_date")
     private LocalDate issuedDate;
 
+    @Column(name = "paid_date")
     private LocalDate paidDate;
 
-    @Column(nullable = false)
+    @Column(name = "total_amount", nullable = false)
     private Long totalAmount;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
     private InvoiceState state;
 

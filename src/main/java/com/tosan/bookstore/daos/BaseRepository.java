@@ -10,11 +10,11 @@ import java.util.List;
 
 @NoRepositoryBean
 public interface BaseRepository<T extends BaseEntity, ID> extends CrudRepository<T, ID> {
-    public List<T> findAllByDeletedFalse();
+    List<T> findAllByDeletedFalse();
 
-    public List<T> findAllByDeletedTrue();
+    List<T> findAllByDeletedTrue();
 
-    public List<T> findByIdAndDeletedFalse(ID id);
+    List<T> findByIdAndDeletedFalse(ID id);
 
     default void softDelete(T entity) {
         Assert.notNull(entity, "The entity must not be null!");
