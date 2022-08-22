@@ -1,4 +1,4 @@
-package com.tosan.bookstore;
+package com.tosan.bookstore.configs;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
