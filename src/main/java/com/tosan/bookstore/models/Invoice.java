@@ -11,10 +11,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class Invoice extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_Id", nullable = false)
-    private User user;
-
     @Column(name = "issued_date")
     private LocalDate issuedDate;
 
@@ -24,12 +20,16 @@ public class Invoice extends BaseEntity {
     @Column(name = "total_amount", nullable = false)
     private Long totalAmount;
 
-    @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     private InvoiceState state;
 
     @Column(length = 200)
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_Id", nullable = false)
+    private User user;
 
     @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<InvoiceItem> invoiceItems;

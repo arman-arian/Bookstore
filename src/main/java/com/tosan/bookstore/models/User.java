@@ -15,7 +15,7 @@ public class User extends BaseEntity {
         @Column(length = 40, nullable = false, unique = true)
         private String username;
 
-        @Column(length = 40, nullable = false)
+        @Column(length = 256, nullable = false)
         private String password;
 
         @Column(length = 80)
@@ -24,8 +24,8 @@ public class User extends BaseEntity {
         @Column(length = 320, unique = true)
         private String email;
 
+        @Column(name = "user_type", nullable = false)
         @Enumerated(EnumType.ORDINAL)
-        @Column(nullable = false)
         private UserType userType;
 
         @Column(name = "last_login_date")
@@ -33,6 +33,9 @@ public class User extends BaseEntity {
 
         @Column(nullable = false)
         private Boolean active;
+
+        @Column(name = "avatar_url", length = 400)
+        private String avatarUrl;
 
         @Lazy
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

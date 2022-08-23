@@ -9,14 +9,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class InvoiceItem extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "invoice_Id", nullable = false)
-    private Invoice invoice;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "book_Id", nullable = false)
-    private Book book;
-
     private Integer quantity;
 
     @Column(nullable = false)
@@ -24,4 +16,16 @@ public class InvoiceItem extends BaseEntity {
 
     @Column(length = 200)
     private String description;
+
+    @Column(name = "payment_type")
+    @Enumerated(EnumType.ORDINAL)
+    private PaymentType paymentType;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "invoice_Id", nullable = false)
+    private Invoice invoice;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "book_Id", nullable = false)
+    private Book book;
 }

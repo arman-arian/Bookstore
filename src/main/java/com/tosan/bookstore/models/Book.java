@@ -41,8 +41,11 @@ public class Book extends BaseEntity {
     @Column(name = "image_url", length = 400)
     private String imageUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @Column(name = "file_url", length = 400)
+    private String fileUrl;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @Override

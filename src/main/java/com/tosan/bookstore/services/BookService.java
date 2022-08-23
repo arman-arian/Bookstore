@@ -5,10 +5,12 @@ import com.tosan.bookstore.dtos.outputs.BookOutputDto;
 import com.tosan.bookstore.exceptions.GeneralException;
 import com.tosan.bookstore.models.Book;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class BookService {
     private final BookRepository repository;
     private final ModelMapper modelMapper;

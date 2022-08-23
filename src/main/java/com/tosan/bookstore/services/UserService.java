@@ -8,12 +8,14 @@ import com.tosan.bookstore.daos.UserRepository;
 import com.tosan.bookstore.utils.enums.EnumUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class UserService {
     private final UserRepository repository;
     private final ModelMapper modelMapper;

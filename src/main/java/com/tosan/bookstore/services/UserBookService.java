@@ -4,7 +4,9 @@ import com.tosan.bookstore.daos.UserRepository;
 import com.tosan.bookstore.exceptions.GeneralException;
 import com.tosan.bookstore.models.User;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserBookService {
     private final UserRepository repository;
     private final ModelMapper modelMapper;
