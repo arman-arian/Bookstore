@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserService {
+public class UserService extends BaseService {
     private final UserRepository repository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
@@ -87,7 +87,8 @@ public class UserService {
             } else {
                 throw new GeneralException("1002", "Invalid Username or password");
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new GeneralException("1003", "Login Error", ex);
         }
     }
