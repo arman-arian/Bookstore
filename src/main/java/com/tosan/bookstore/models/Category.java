@@ -14,5 +14,5 @@ public class Category extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Book> books;
+    private Set<SubCategory> subCategories;
 }

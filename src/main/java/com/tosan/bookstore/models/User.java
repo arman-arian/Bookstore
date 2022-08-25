@@ -37,7 +37,6 @@ public class User extends BaseEntity {
         @Column(name = "avatar_url", length = 400)
         private String avatarUrl;
 
-        @Lazy
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-        private Set<UserBook> userBooks;
+        private Set<Invoice> invoices;
 }

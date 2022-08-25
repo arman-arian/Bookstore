@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserService extends BaseService {
+public class UserService {
     private final UserRepository repository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;

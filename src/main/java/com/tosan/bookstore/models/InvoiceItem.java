@@ -9,17 +9,25 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class InvoiceItem extends BaseEntity {
-    private Integer quantity;
+    @Column(name = "payment_type")
+    @Enumerated(EnumType.ORDINAL)
+    private PaymentType paymentType;
 
     @Column(nullable = false)
     private Long price;
 
+    @Column(name = "from_date", nullable = false)
+    private Integer fromDate;
+
+    @Column(name = "to_date")
+    private Integer toDate;
+
     @Column(length = 200)
     private String description;
 
-    @Column(name = "payment_type")
-    @Enumerated(EnumType.ORDINAL)
-    private PaymentType paymentType;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_Id", nullable = false)
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "invoice_Id", nullable = false)

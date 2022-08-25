@@ -45,8 +45,8 @@ public class Book extends BaseEntity {
     private String fileUrl;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    @JoinColumn(name = "sub_category_id", nullable = false)
+    private SubCategory subCategory;
 
     @Override
     public String toString() {

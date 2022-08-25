@@ -23,11 +23,6 @@ public class UserBookService {
             if (user == null)
                 throw new GeneralException("1000", "User not exists");
 
-            var userBooks = user.getUserBooks();
-            for(var userBook : userBooks)
-            {
-
-            }
         }
         catch (Exception ex)
         {
