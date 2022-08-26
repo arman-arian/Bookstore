@@ -1,7 +1,5 @@
 package com.tosan.bookstore.utils.dates;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.time.DayOfWeek;
 
 public final class PersianDateResource {
@@ -21,7 +19,7 @@ public final class PersianDateResource {
         return monthNames[month - 1];
     }
 
-    public static int GetMonthNumber(@NotNull String monthName)
+    public static int GetMonthNumber(String monthName)
     {
         for (var i = 0; i < monthNames.length; i++)
         {
@@ -32,7 +30,7 @@ public final class PersianDateResource {
         throw new IllegalArgumentException("monthName has invalid month name");
     }
 
-    public static String GetWeekDayName(@NotNull DayOfWeek dayOfWeek)
+    public static String GetWeekDayName(DayOfWeek dayOfWeek)
     {
         return dayNames[dayOfWeek.getValue()-1];
     }

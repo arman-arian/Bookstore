@@ -1,11 +1,11 @@
 package com.tosan.bookstore.dtos.inputs;
 
-//import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @AllArgsConstructor
@@ -13,9 +13,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class LoginInputDto implements Serializable {
-   // @NotEmpty(message = "username is invalid")
+    @NotEmpty(message = "username is invalid")
     private String username;
 
-    //@NotEmpty(message = "password is invalid")
+    @NotEmpty(message = "password is invalid")
     private String password;
 }

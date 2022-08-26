@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BookService {
+public class BookService extends BaseService {
     private final BookRepository repository;
     private final ModelMapper modelMapper;
 

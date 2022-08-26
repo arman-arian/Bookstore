@@ -1,14 +1,12 @@
 package com.tosan.bookstore.utils.dates;
 
-import org.jetbrains.annotations.NotNull;
-
 public final class PersianDateFormat {
     public static String Format(int[] jDate)
     {
         return Format(jDate[0], jDate[1], jDate[2], "", "", "");
     }
 
-    public static String Format(int year, int month, int day, String dayOfWeek, String monthName, @NotNull String format)
+    public static String Format(int year, int month, int day, String dayOfWeek, String monthName, String format)
     {
         return switch (format) {
             case "d" -> String.format("%d/%d/%d", year, month, day);

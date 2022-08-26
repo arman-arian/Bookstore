@@ -2,7 +2,8 @@ package com.tosan.bookstore.services;
 
 import com.tosan.bookstore.dtos.inputs.*;
 import com.tosan.bookstore.dtos.outputs.*;
-import com.tosan.bookstore.exceptions.GeneralException;
+import com.tosan.bookstore.exceptions.BusinessException;
+import com.tosan.bookstore.exceptions.FaultCodes;
 import com.tosan.bookstore.models.*;
 import com.tosan.bookstore.daos.UserRepository;
 import com.tosan.bookstore.utils.enums.EnumUtils;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserService {
+public class UserService extends BaseService {
     private final UserRepository repository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
@@ -32,108 +33,104 @@ public class UserService {
     }
 
     public UserOutputDto GetUser(Long id) {
-        try {
-            User user = repository.findById(id).orElse(null);
-            if (user == null)
-                throw new GeneralException("1000", "User not exists");
-            return modelMapper.map(user, UserOutputDto.class);
-        } catch (Exception ex) {
-            throw new GeneralException("1003", "GetUser Error", ex);
+        User user = repository.findById(id).orElse(null);
+        if (user == null) {
+            throw new BusinessException(FaultCodes.UserNotExists);
         }
+        return modelMapper.map(user, UserOutputDto.class);
     }
 
     public List<UserOutputDto> GetUsers() {
-        try {
-            List<UserOutputDto> outputDto = new ArrayList<>();
-            List<User> users = (List<User>) repository.findAll();
-            for (User user : users) {
-                outputDto.add(modelMapper.map(user, UserOutputDto.class));
-            }
-
-            return outputDto;
-        } catch (Exception ex) {
-            throw new GeneralException("1003", "GetUsers Error", ex);
+        List<UserOutputDto> outputDto = new ArrayList<>();
+        List<User> users = (List<User>) repository.findAll();
+        for (User user : users) {
+            outputDto.add(modelMapper.map(user, UserOutputDto.class));
         }
+
+        return outputDto;
     }
 
     public void Register(UserInputDto inputDto) {
-        try {
-            var user = modelMapper.map(inputDto, User.class);
-            user.setPassword(passwordEncoder.encode(inputDto.getPassword()));
-            user.setActive(true);
+        var user = modelMapper.map(inputDto, User.class);
+        user.setPassword(passwordEncoder.encode(inputDto.getPassword()));
+        user.setActive(true);
 
-            repository.save(user);
-        } catch (Exception ex) {
-            throw new GeneralException("1003", "Register Error", ex);
-        }
+        repository.save(user);
     }
 
     public LoginOutputDto Login(LoginInputDto inputDto) {
-        try {
-            User user = repository.findByUsername(inputDto.getUsername());
-            if (user == null) {
-                throw new GeneralException("1000", "User not found!");
-            }
-
-            if (!user.getActive()) {
-                throw new GeneralException("1001", "User is not active!");
-            }
-
-            if (passwordEncoder.matches(inputDto.getPassword(), user.getPassword())) {
-                var outputDto = modelMapper.map(user, LoginOutputDto.class);
-                user.setLastLoginDate(LocalDateTime.now());
-                repository.save(user);
-                return outputDto;
-            } else {
-                throw new GeneralException("1002", "Invalid Username or password");
-            }
+        User user = repository.findByUsername(inputDto.getUsername());
+        if (user == null) {
+            throw new BusinessException(FaultCodes.UserNotExists);
         }
-        catch (Exception ex) {
-            throw new GeneralException("1003", "Login Error", ex);
+
+        if (!user.getActive()) {
+            throw new BusinessException(FaultCodes.UserNotActive);
+        }
+
+        if (passwordEncoder.matches(inputDto.getPassword(), user.getPassword())) {
+            var outputDto = modelMapper.map(user, LoginOutputDto.class);
+            user.setLastLoginDate(LocalDateTime.now());
+            repository.save(user);
+            return outputDto;
+        } else {
+            throw new BusinessException(FaultCodes.UserLoginFailed);
         }
     }
 
     public void ChangePassword(ChangePasswordInputDto inputDto) {
-        try {
-            if (passwordEncoder.matches(inputDto.getOldPassword(), inputDto.getNewPassword())) {
-                throw new GeneralException("1001", "New password is similar to old password");
-            }
+        if (passwordEncoder.matches(inputDto.getOldPassword(), inputDto.getNewPassword())) {
+            throw new BusinessException(FaultCodes.UserSameOldAndNewPassword);
+        }
 
-            User user = repository.findByUsername(inputDto.getUsername());
-            if (user == null) {
-                throw new GeneralException("1000", "User not found!");
-            }
+        User user = repository.findByUsername(inputDto.getUsername());
+        if (user == null) {
+            throw new BusinessException(FaultCodes.UserNotExists);
+        }
 
-            if (!user.getActive()) {
-                throw new GeneralException("1001", "User is not active!");
-            }
+        if (!user.getActive()) {
+            throw new BusinessException(FaultCodes.UserNotActive);
+        }
 
-            if (passwordEncoder.matches(inputDto.getOldPassword(), user.getPassword())) {
-                user.setPassword(inputDto.getNewPassword());
-                repository.save(user);
-            } else {
-                throw new GeneralException("1002", "Invalid Username or password");
-            }
-        } catch (Exception ex) {
-            throw new GeneralException("1003", "ChangePassword Error", ex);
+        if (passwordEncoder.matches(inputDto.getOldPassword(), user.getPassword())) {
+            user.setPassword(inputDto.getNewPassword());
+            repository.save(user);
+        } else {
+            throw new BusinessException(FaultCodes.UserLoginFailed);
         }
     }
 
     public void ResetPassword(ResetPasswordInputDto inputDto) {
-        try {
-            User user = repository.findByUsername(inputDto.getUsername());
-            if (user == null) {
-                throw new GeneralException("1000", "User not found!");
-            }
-
-            if (!user.getActive()) {
-                throw new GeneralException("1001", "User is not active!");
-            }
-
-            user.setPassword(inputDto.getNewPassword());
-            repository.save(user);
-        } catch (Exception ex) {
-            throw new GeneralException("1003", "ChangePassword Error", ex);
+        User user = repository.findByUsername(inputDto.getUsername());
+        if (user == null) {
+            throw new BusinessException(FaultCodes.UserNotExists);
         }
+
+        if (!user.getActive()) {
+            throw new BusinessException(FaultCodes.UserNotActive);
+        }
+
+        user.setPassword(inputDto.getNewPassword());
+        repository.save(user);
+    }
+
+    public void ActiveUser(Long id) {
+        User user = repository.findById(id).orElse(null);
+        if (user == null) {
+            throw new BusinessException(FaultCodes.UserNotExists);
+        }
+
+        user.setActive(true);
+        repository.save(user);
+    }
+
+    public void DeActiveUser(Long id) {
+        User user = repository.findById(id).orElse(null);
+        if (user == null) {
+            throw new BusinessException(FaultCodes.UserNotExists);
+        }
+
+        user.setActive(false);
+        repository.save(user);
     }
 }

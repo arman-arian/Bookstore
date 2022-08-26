@@ -1,8 +1,5 @@
 package com.tosan.bookstore.utils.dates;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,7 +17,7 @@ public final class PersianDate implements Serializable, Comparable<PersianDate> 
         _dateTime = LocalDate.MIN;
     }
 
-    public PersianDate(@NotNull LocalDate dateTime)
+    public PersianDate(LocalDate dateTime)
     {
         _dateTime = LocalDate.of(dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
     }
@@ -54,7 +51,7 @@ public final class PersianDate implements Serializable, Comparable<PersianDate> 
     }
 
     @Override
-    public int compareTo(@NotNull PersianDate o) {
+    public int compareTo(PersianDate o) {
         return _dateTime.compareTo(o._dateTime);
     }
 
@@ -71,14 +68,12 @@ public final class PersianDate implements Serializable, Comparable<PersianDate> 
         return Integer.parseInt(PersianDateFormat.Format(jDate));
     }
 
-    @Contract(" -> new")
-    private @NotNull LocalDate toLocalDate()
+    private LocalDate toLocalDate()
     {
         return LocalDate.of(_dateTime.getYear(), _dateTime.getMonthValue(), _dateTime.getDayOfMonth());
     }
 
-    @Contract(" -> new")
-    public static @NotNull PersianDate now()
+    public static PersianDate now()
     {
         return new PersianDate(LocalDate.now());
     }
@@ -87,7 +82,7 @@ public final class PersianDate implements Serializable, Comparable<PersianDate> 
      * Author: JDF.SCR.IR =>> Download Full Version :  <a href="http://jdf.scr.ir/jdf">...</a> License: GNU/LGPL _ Open
      * Source & Free :: Version: 2.80 : [2020=1399]
      */
-    private static int @NotNull [] gregorian_to_jalali(int gy, int gm, int gd) {
+    private static int [] gregorian_to_jalali(int gy, int gm, int gd) {
         int[] out = {
                 (gm > 2) ? (gy + 1) : gy,
                 0,
@@ -120,7 +115,7 @@ public final class PersianDate implements Serializable, Comparable<PersianDate> 
      * Author: JDF.SCR.IR =>> Download Full Version :  <a href="http://jdf.scr.ir/jdf">...</a> License: GNU/LGPL _ Open
      * Source & Free :: Version: 2.80 : [2020=1399]
      */
-    private static int @NotNull [] jalali_to_gregorian(int jy, int jm, int jd) {
+    private static int [] jalali_to_gregorian(int jy, int jm, int jd) {
         jy += 1595;
         int[] out = {
                 0,
