@@ -1,10 +1,7 @@
 package com.tosan.bookstore.dtos.inputs;
 
 import com.tosan.bookstore.models.UserType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -19,4 +16,5 @@ public class UserInputDto implements Serializable {
     private String name;
     private String email;
     private UserType userType;
+    private String avatarUrl;
 }

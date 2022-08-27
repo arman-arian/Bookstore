@@ -2,8 +2,8 @@ package com.tosan.bookstore.services;
 
 import com.tosan.bookstore.dtos.inputs.*;
 import com.tosan.bookstore.dtos.outputs.*;
-import com.tosan.bookstore.exceptions.BusinessException;
-import com.tosan.bookstore.exceptions.FaultCodes;
+import com.tosan.bookstore.exceptions.BookStoreException;
+import com.tosan.bookstore.exceptions.BookStoreFaults;
 import com.tosan.bookstore.models.*;
 import com.tosan.bookstore.daos.UserRepository;
 import com.tosan.bookstore.utils.enums.EnumUtils;
@@ -35,7 +35,7 @@ public class UserService extends BaseService {
     public UserOutputDto GetUser(Long id) {
         User user = repository.findById(id).orElse(null);
         if (user == null) {
-            throw new BusinessException(FaultCodes.UserNotExists);
+            throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
         return modelMapper.map(user, UserOutputDto.class);
     }
@@ -58,14 +58,31 @@ public class UserService extends BaseService {
         repository.save(user);
     }
 
-    public LoginOutputDto Login(LoginInputDto inputDto) {
-        User user = repository.findByUsername(inputDto.getUsername());
+    public void Update(UserInputDto inputDto) {
+        User user = repository.findById(inputDto.getId()).orElse(null);
         if (user == null) {
-            throw new BusinessException(FaultCodes.UserNotExists);
+            throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
         if (!user.getActive()) {
-            throw new BusinessException(FaultCodes.UserNotActive);
+            throw new BookStoreException(BookStoreFaults.UserNotActive);
+        }
+
+        user.setName(inputDto.getName());
+        user.setEmail(inputDto.getEmail());
+        user.setAvatarUrl(inputDto.getAvatarUrl());
+
+        repository.save(user);
+    }
+
+    public LoginOutputDto Login(LoginInputDto inputDto) {
+        User user = repository.findByUsername(inputDto.getUsername());
+        if (user == null) {
+            throw new BookStoreException(BookStoreFaults.UserNotExists);
+        }
+
+        if (!user.getActive()) {
+            throw new BookStoreException(BookStoreFaults.UserNotActive);
         }
 
         if (passwordEncoder.matches(inputDto.getPassword(), user.getPassword())) {
@@ -74,40 +91,40 @@ public class UserService extends BaseService {
             repository.save(user);
             return outputDto;
         } else {
-            throw new BusinessException(FaultCodes.UserLoginFailed);
+            throw new BookStoreException(BookStoreFaults.UserLoginFailed);
         }
     }
 
     public void ChangePassword(ChangePasswordInputDto inputDto) {
         if (passwordEncoder.matches(inputDto.getOldPassword(), inputDto.getNewPassword())) {
-            throw new BusinessException(FaultCodes.UserSameOldAndNewPassword);
+            throw new BookStoreException(BookStoreFaults.UserSameOldAndNewPassword);
         }
 
         User user = repository.findByUsername(inputDto.getUsername());
         if (user == null) {
-            throw new BusinessException(FaultCodes.UserNotExists);
+            throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
         if (!user.getActive()) {
-            throw new BusinessException(FaultCodes.UserNotActive);
+            throw new BookStoreException(BookStoreFaults.UserNotActive);
         }
 
         if (passwordEncoder.matches(inputDto.getOldPassword(), user.getPassword())) {
             user.setPassword(inputDto.getNewPassword());
             repository.save(user);
         } else {
-            throw new BusinessException(FaultCodes.UserLoginFailed);
+            throw new BookStoreException(BookStoreFaults.UserLoginFailed);
         }
     }
 
     public void ResetPassword(ResetPasswordInputDto inputDto) {
         User user = repository.findByUsername(inputDto.getUsername());
         if (user == null) {
-            throw new BusinessException(FaultCodes.UserNotExists);
+            throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
         if (!user.getActive()) {
-            throw new BusinessException(FaultCodes.UserNotActive);
+            throw new BookStoreException(BookStoreFaults.UserNotActive);
         }
 
         user.setPassword(inputDto.getNewPassword());
@@ -117,7 +134,7 @@ public class UserService extends BaseService {
     public void ActiveUser(Long id) {
         User user = repository.findById(id).orElse(null);
         if (user == null) {
-            throw new BusinessException(FaultCodes.UserNotExists);
+            throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
         user.setActive(true);
@@ -127,7 +144,7 @@ public class UserService extends BaseService {
     public void DeActiveUser(Long id) {
         User user = repository.findById(id).orElse(null);
         if (user == null) {
-            throw new BusinessException(FaultCodes.UserNotExists);
+            throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
         user.setActive(false);

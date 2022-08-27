@@ -1,6 +1,8 @@
 package com.tosan.bookstore.exceptions;
 
-public enum FaultCodes  {
+import java.text.MessageFormat;
+
+public enum BookStoreFaults {
     UserNotExists("User not found"),
     UserNotActive("User is not active"),
     UserLoginFailed("Invalid Username or password"),
@@ -10,11 +12,17 @@ public enum FaultCodes  {
 
     private final String description;
 
-    FaultCodes(String description) {
+    BookStoreFaults(String description) {
         this.description = description;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public String getDescription(Object... args)
+    {
+        MessageFormat messageFormat = new MessageFormat(getDescription());
+        return messageFormat.format(args);
     }
 }
