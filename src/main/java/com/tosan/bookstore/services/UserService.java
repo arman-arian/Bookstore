@@ -2,8 +2,7 @@ package com.tosan.bookstore.services;
 
 import com.tosan.bookstore.dtos.inputs.*;
 import com.tosan.bookstore.dtos.outputs.*;
-import com.tosan.bookstore.exceptions.BookStoreException;
-import com.tosan.bookstore.exceptions.BookStoreFaults;
+import com.tosan.bookstore.exceptions.*;
 import com.tosan.bookstore.models.*;
 import com.tosan.bookstore.daos.UserRepository;
 import com.tosan.bookstore.utils.enums.EnumUtils;
