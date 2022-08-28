@@ -1,10 +1,7 @@
 package com.tosan.bookstore.dtos.outputs;
 
 import com.tosan.bookstore.models.UserType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -1,24 +1,20 @@
-package com.tosan.bookstore.dtos.outputs;
+package com.tosan.bookstore.dtos.inputs;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookOutputDto implements Serializable {
+public class BookInputDto implements Serializable {
     private Long id;
-    private Integer version;
-    private LocalDateTime createdDate;
-    private String createdBy;
-    private LocalDateTime lastModifiedDate;
-    private String lastModifiedBy;
-    private Boolean deleted = false;
     private String title;
     private String author;
     private String isbn;
@@ -30,4 +26,5 @@ public class BookOutputDto implements Serializable {
     private String summary;
     private String imageUrl;
     private String fileUrl;
+    private Long subCategoryId;
 }

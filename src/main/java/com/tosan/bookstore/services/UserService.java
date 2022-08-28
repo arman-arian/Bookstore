@@ -17,14 +17,14 @@ import java.util.Map;
 
 @Service
 public class UserService extends BaseService {
-    private final UserRepository repository;
-    private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
+    private final UserRepository _userRepository;
+    private final ModelMapper _modelMapper;
+    private final PasswordEncoder _passwordEncoder;
 
-    public UserService(UserRepository repository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
-        this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
+    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+        this._userRepository = userRepository;
+        this._modelMapper = modelMapper;
+        this._passwordEncoder = passwordEncoder;
     }
 
     public Map<Integer, String> GetUserTypes() {
@@ -32,33 +32,33 @@ public class UserService extends BaseService {
     }
 
     public UserOutputDto GetUser(Long id) {
-        User user = repository.findById(id).orElse(null);
+        User user = _userRepository.findById(id).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
-        return modelMapper.map(user, UserOutputDto.class);
+        return _modelMapper.map(user, UserOutputDto.class);
     }
 
     public List<UserOutputDto> GetUsers() {
         List<UserOutputDto> outputDto = new ArrayList<>();
-        List<User> users = (List<User>) repository.findAll();
+        List<User> users = (List<User>) _userRepository.findAll();
         for (User user : users) {
-            outputDto.add(modelMapper.map(user, UserOutputDto.class));
+            outputDto.add(_modelMapper.map(user, UserOutputDto.class));
         }
 
         return outputDto;
     }
 
     public void Register(UserInputDto inputDto) {
-        var user = modelMapper.map(inputDto, User.class);
-        user.setPassword(passwordEncoder.encode(inputDto.getPassword()));
+        var user = _modelMapper.map(inputDto, User.class);
+        user.setPassword(_passwordEncoder.encode(inputDto.getPassword()));
         user.setActive(true);
 
-        repository.save(user);
+        _userRepository.save(user);
     }
 
     public void Update(UserInputDto inputDto) {
-        User user = repository.findById(inputDto.getId()).orElse(null);
+        User user = _userRepository.findById(inputDto.getId()).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -71,11 +71,11 @@ public class UserService extends BaseService {
         user.setEmail(inputDto.getEmail());
         user.setAvatarUrl(inputDto.getAvatarUrl());
 
-        repository.save(user);
+        _userRepository.save(user);
     }
 
     public LoginOutputDto Login(LoginInputDto inputDto) {
-        User user = repository.findByUsername(inputDto.getUsername());
+        User user = _userRepository.findByUsername(inputDto.getUsername());
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -84,10 +84,10 @@ public class UserService extends BaseService {
             throw new BookStoreException(BookStoreFaults.UserNotActive);
         }
 
-        if (passwordEncoder.matches(inputDto.getPassword(), user.getPassword())) {
-            var outputDto = modelMapper.map(user, LoginOutputDto.class);
+        if (_passwordEncoder.matches(inputDto.getPassword(), user.getPassword())) {
+            var outputDto = _modelMapper.map(user, LoginOutputDto.class);
             user.setLastLoginDate(LocalDateTime.now());
-            repository.save(user);
+            _userRepository.save(user);
             return outputDto;
         } else {
             throw new BookStoreException(BookStoreFaults.UserLoginFailed);
@@ -95,11 +95,11 @@ public class UserService extends BaseService {
     }
 
     public void ChangePassword(ChangePasswordInputDto inputDto) {
-        if (passwordEncoder.matches(inputDto.getOldPassword(), inputDto.getNewPassword())) {
+        if (_passwordEncoder.matches(inputDto.getOldPassword(), inputDto.getNewPassword())) {
             throw new BookStoreException(BookStoreFaults.UserSameOldAndNewPassword);
         }
 
-        User user = repository.findByUsername(inputDto.getUsername());
+        User user = _userRepository.findByUsername(inputDto.getUsername());
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -108,16 +108,16 @@ public class UserService extends BaseService {
             throw new BookStoreException(BookStoreFaults.UserNotActive);
         }
 
-        if (passwordEncoder.matches(inputDto.getOldPassword(), user.getPassword())) {
+        if (_passwordEncoder.matches(inputDto.getOldPassword(), user.getPassword())) {
             user.setPassword(inputDto.getNewPassword());
-            repository.save(user);
+            _userRepository.save(user);
         } else {
             throw new BookStoreException(BookStoreFaults.UserLoginFailed);
         }
     }
 
     public void ResetPassword(ResetPasswordInputDto inputDto) {
-        User user = repository.findByUsername(inputDto.getUsername());
+        User user = _userRepository.findByUsername(inputDto.getUsername());
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -127,26 +127,26 @@ public class UserService extends BaseService {
         }
 
         user.setPassword(inputDto.getNewPassword());
-        repository.save(user);
+        _userRepository.save(user);
     }
 
     public void ActiveUser(Long id) {
-        User user = repository.findById(id).orElse(null);
+        User user = _userRepository.findById(id).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
         user.setActive(true);
-        repository.save(user);
+        _userRepository.save(user);
     }
 
     public void DeActiveUser(Long id) {
-        User user = repository.findById(id).orElse(null);
+        User user = _userRepository.findById(id).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
         user.setActive(false);
-        repository.save(user);
+        _userRepository.save(user);
     }
 }
