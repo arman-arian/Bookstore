@@ -3,6 +3,7 @@ package com.tosan.bookstore.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,5 +15,5 @@ public class Category extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<SubCategory> subCategories;
+    private Set<SubCategory> subCategories = new HashSet<>();
 }

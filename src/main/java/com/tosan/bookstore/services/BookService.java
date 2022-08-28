@@ -57,7 +57,7 @@ public class BookService extends BaseService {
             throw new BookStoreException(BookStoreFaults.SubCategoryNotExists);
 
         var book = _modelMapper.map(inputDto, Book.class);
-        subCategory.getBooks().add(book);
+        subCategory.AddBook(book);
 
         _subCategoryRepository.save(subCategory);
     }

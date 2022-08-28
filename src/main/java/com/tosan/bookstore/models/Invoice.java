@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,5 +33,5 @@ public class Invoice extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<InvoiceItem> invoiceItems;
+    private Set<InvoiceItem> invoiceItems = new HashSet<>();
 }

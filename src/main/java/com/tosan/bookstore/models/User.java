@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.time.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -38,5 +39,5 @@ public class User extends BaseEntity {
         private String avatarUrl;
 
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-        private Set<Invoice> invoices;
+        private Set<Invoice> invoices = new HashSet<>();
 }
