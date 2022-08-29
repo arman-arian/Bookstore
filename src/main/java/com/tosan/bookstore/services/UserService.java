@@ -131,7 +131,7 @@ public class UserService extends BaseService {
     }
 
     public void ActiveUser(Long id) {
-        User user = _userRepository.findById(id).orElse(null);
+        var user = _userRepository.findById(id).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -141,12 +141,22 @@ public class UserService extends BaseService {
     }
 
     public void DeActiveUser(Long id) {
-        User user = _userRepository.findById(id).orElse(null);
+        var user = _userRepository.findById(id).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
         user.setActive(false);
+        _userRepository.save(user);
+    }
+
+    public void AddUserMembership(Long id) {
+        var user = _userRepository.findById(id).orElse(null);
+        if (user == null) {
+            throw new BookStoreException(BookStoreFaults.UserNotExists);
+        }
+
+        user.setUserType(UserType.Member);
         _userRepository.save(user);
     }
 }

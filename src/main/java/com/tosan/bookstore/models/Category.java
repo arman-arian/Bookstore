@@ -16,4 +16,8 @@ public class Category extends BaseEntity {
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<SubCategory> subCategories = new HashSet<>();
+
+    public void AddSubCategory(SubCategory subCategory) {
+        getSubCategories().add(subCategory);
+    }
 }

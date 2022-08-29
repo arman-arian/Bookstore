@@ -34,4 +34,8 @@ public class Invoice extends BaseEntity {
 
     @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<InvoiceItem> invoiceItems = new HashSet<>();
+
+    public void addInvoiceItem(InvoiceItem invoiceItem) {
+        getInvoiceItems().add(invoiceItem);
+    }
 }
