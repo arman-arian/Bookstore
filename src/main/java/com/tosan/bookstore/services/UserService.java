@@ -32,7 +32,7 @@ public class UserService extends BaseService {
     }
 
     public UserOutputDto GetUser(Long id) {
-        User user = _userRepository.findById(id).orElse(null);
+        var user = _userRepository.findById(id).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -41,8 +41,8 @@ public class UserService extends BaseService {
 
     public List<UserOutputDto> GetUsers() {
         List<UserOutputDto> outputDto = new ArrayList<>();
-        List<User> users = (List<User>) _userRepository.findAll();
-        for (User user : users) {
+        var users = (List<User>) _userRepository.findAll();
+        for (var user : users) {
             outputDto.add(_modelMapper.map(user, UserOutputDto.class));
         }
 
@@ -58,7 +58,7 @@ public class UserService extends BaseService {
     }
 
     public void UpdateUser(UserInputDto inputDto) {
-        User user = _userRepository.findById(inputDto.getId()).orElse(null);
+        var user = _userRepository.findById(inputDto.getId()).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -75,7 +75,7 @@ public class UserService extends BaseService {
     }
 
     public LoginOutputDto Login(LoginInputDto inputDto) {
-        User user = _userRepository.findByUsername(inputDto.getUsername());
+        var user = _userRepository.findByUsername(inputDto.getUsername());
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -99,7 +99,7 @@ public class UserService extends BaseService {
             throw new BookStoreException(BookStoreFaults.UserSameOldAndNewPassword);
         }
 
-        User user = _userRepository.findByUsername(inputDto.getUsername());
+        var user = _userRepository.findByUsername(inputDto.getUsername());
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -117,7 +117,7 @@ public class UserService extends BaseService {
     }
 
     public void ResetPassword(ResetPasswordInputDto inputDto) {
-        User user = _userRepository.findByUsername(inputDto.getUsername());
+        var user = _userRepository.findByUsername(inputDto.getUsername());
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
