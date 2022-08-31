@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.*;
 
 @Entity
 @Table(name = "Books")
@@ -29,20 +28,11 @@ public class Book extends BaseEntity {
     @Column(name = "pub_name", length = 200)
     private String pubName;
 
-    @Column(name = "pub_date")
-    private LocalDate pubDate;
-
     @Column(name = "pub_year")
     private Integer pubYear;
 
     @Column(length = 400)
     private String summary;
-
-    @Column(name = "image_url", length = 400)
-    private String imageUrl;
-
-    @Column(name = "file_url", length = 400)
-    private String fileUrl;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sub_category_id", nullable = false)

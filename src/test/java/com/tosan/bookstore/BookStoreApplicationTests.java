@@ -9,13 +9,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootTest
 class BookStoreApplicationTests {
     @Test
-    void testPersianDate() {
-        var result = PersianDate.now().toString("D");
+    void contextLoad() {
+       // var result = PersianDate.now().toString("D");
     }
 
-    @Test
-    void testHashPassword() {
-        PasswordEncoder _passwordEncoder = new BCryptPasswordEncoder();
-        var result = _passwordEncoder.encode("12345");
-    }
+//    @Test
+//    void testHashPassword() {
+//        PasswordEncoder _passwordEncoder = new BCryptPasswordEncoder();
+//        var result = _passwordEncoder.encode("12345");
+//    }
 }

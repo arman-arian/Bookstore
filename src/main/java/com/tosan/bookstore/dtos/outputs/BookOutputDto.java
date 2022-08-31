@@ -4,7 +4,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -25,9 +24,6 @@ public class BookOutputDto implements Serializable {
     private BigDecimal buyPrice;
     private BigDecimal rentPrice;
     private String pubName;
-    private LocalDate pubDate;
     private Integer pubYear;
     private String summary;
-    private String imageUrl;
-    private String fileUrl;
 }
