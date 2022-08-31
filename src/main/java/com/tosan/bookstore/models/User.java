@@ -1,7 +1,6 @@
 package com.tosan.bookstore.models;
 
 import lombok.*;
-import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.time.*;
@@ -34,9 +33,6 @@ public class User extends BaseEntity {
 
         @Column(nullable = false)
         private Boolean active;
-
-        @Column(name = "avatar_url", length = 400)
-        private String avatarUrl;
 
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         private Set<Invoice> invoices = new HashSet<>();

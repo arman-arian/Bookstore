@@ -69,7 +69,6 @@ public class UserService extends BaseService {
 
         user.setName(inputDto.getName());
         user.setEmail(inputDto.getEmail());
-        user.setAvatarUrl(inputDto.getAvatarUrl());
 
         _userRepository.save(user);
     }
