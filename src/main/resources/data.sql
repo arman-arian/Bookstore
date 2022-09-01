@@ -54,9 +54,7 @@ VALUES
     ( 30,'Unix/Linux Programming', 6, 'admin', '2022-08-02 12:30:00', 0, 'admin', '2022-08-02 12:30:00', 0),
     ( 31,'Unix/Linux Networking', 6, 'admin', '2022-08-02 12:30:00', 0, 'admin', '2022-08-02 12:30:00', 0),
     ( 32,'Unix/Linux Security', 6, 'admin', '2022-08-02 12:30:00', 0, 'admin', '2022-08-02 12:30:00', 0),
-    ( 33,'Unix/Linux System Administration', 6, 'admin', '2022-08-02 12:30:00', 0, 'admin', '2022-08-02 12:30:00', 0)
-
-;
+    ( 33,'Unix/Linux System Administration', 6, 'admin', '2022-08-02 12:30:00', 0, 'admin', '2022-08-02 12:30:00', 0);
 
 INSERT INTO PUBLIC.BOOKS (ID, TITLE, AUTHOR, ISBN, SUB_CATEGORY_ID, BUY_PRICE, RENT_PRICE, PUB_NAME, PUB_YEAR, SUMMARY, CREATED_BY, CREATED_DATE, DELETED, LAST_MODIFIED_BY, LAST_MODIFIED_DATE, VERSION)
 VALUES

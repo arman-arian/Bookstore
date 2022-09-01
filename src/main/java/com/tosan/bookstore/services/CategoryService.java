@@ -21,14 +21,14 @@ public class CategoryService extends BaseService {
     }
 
     public List<CategoryTreeOutputDto> GetAllCategories() {
-        var categories = _categoryRepository.findAll();
+        final var categories = _categoryRepository.fetchAllCategoriesByJoinFetch();
         List<CategoryTreeOutputDto> result = new ArrayList<>();
         categories.forEach(category ->
         {
-            if ((long) category.getSubCategories().size() > 0) {
+            if (category.hasSubCategories()) {
                 result.add(new CategoryTreeOutputDto(category.getId(), category.getName(), true));
-                for (var item : category.getSubCategories()) {
-                    result.add(new CategoryTreeOutputDto(category.getId(), category.getName(), false));
+                for (var subCategory : category.getSubCategories()) {
+                    result.add(new CategoryTreeOutputDto(subCategory.getId(), subCategory.getName(), false));
                 }
             }
         });

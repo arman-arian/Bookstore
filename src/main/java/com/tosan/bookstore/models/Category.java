@@ -14,10 +14,15 @@ public class Category extends BaseEntity {
     @Column(length = 80)
     private String name;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<SubCategory> subCategories = new HashSet<>();
 
-    public void AddSubCategory(SubCategory subCategory) {
+    public void addSubCategory(SubCategory subCategory) {
         getSubCategories().add(subCategory);
+    }
+
+    public boolean hasSubCategories()
+    {
+        return getSubCategories().size() > 0;
     }
 }
