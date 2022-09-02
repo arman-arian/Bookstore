@@ -3,16 +3,15 @@ package com.tosan.bookstore.dtos.inputs;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class LoginInputDto implements Serializable {
-    @NotEmpty(message = "username is invalid")
+public class LoginInputDto extends BaseInputDto {
+    @NotEmpty(message = "{BookStoreFaults.UserEmptyUsername}")
     private String username;
 
-    @NotEmpty(message = "password is invalid")
+    @NotEmpty(message = "{BookStoreFaults.UserEmptyPassword}")
     private String password;
 }

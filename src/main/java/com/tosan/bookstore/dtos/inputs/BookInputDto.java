@@ -2,14 +2,13 @@ package com.tosan.bookstore.dtos.inputs;
 
 import lombok.*;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookInputDto implements Serializable {
+public class BookInputDto extends BaseInputDto {
     private Long id;
     private String title;
     private String author;

@@ -6,8 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CategoryTreeOutputDto extends BaseOutputDto  {
+public class CategoryOutputDto  extends BaseOutputDto  {
     private Long id;
     private String name;
-    private Boolean isRoot;
 }

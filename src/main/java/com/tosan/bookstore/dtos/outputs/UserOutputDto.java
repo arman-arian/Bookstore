@@ -3,14 +3,13 @@ package com.tosan.bookstore.dtos.outputs;
 import com.tosan.bookstore.models.UserType;
 import lombok.*;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserOutputDto implements Serializable {
+public class UserOutputDto extends BaseOutputDto  {
     private Long id;
     private LocalDateTime createdDate;
     private String createdBy;

@@ -3,13 +3,11 @@ package com.tosan.bookstore.dtos.inputs;
 import com.tosan.bookstore.models.UserType;
 import lombok.*;
 
-import java.io.Serializable;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserInputDto implements Serializable {
+public class UserInputDto extends BaseInputDto {
     private Long id;
     private String username;
     private String password;

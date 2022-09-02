@@ -7,6 +7,11 @@ public enum BookStoreFaults {
     UserNotActive("User is not active"),
     UserLoginFailed("Invalid Username or password"),
     UserSameOldAndNewPassword("New password is similar to old password"),
+    UserEmptyUsername("User username is empty"),
+    UserEmptyPassword("User password is empty"),
+
+
+    CategoryNotExists("Category is not found"),
     SubCategoryNotExists("SubCategory is not found"),
     BookNotExists("Book is not found"),
 

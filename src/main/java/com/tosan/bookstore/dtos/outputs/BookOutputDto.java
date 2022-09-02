@@ -2,7 +2,6 @@ package com.tosan.bookstore.dtos.outputs;
 
 import lombok.*;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookOutputDto implements Serializable {
+public class BookOutputDto  extends BaseOutputDto {
     private Long id;
     private Integer version;
     private LocalDateTime createdDate;
