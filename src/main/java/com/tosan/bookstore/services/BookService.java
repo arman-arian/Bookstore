@@ -16,9 +16,7 @@ import java.util.List;
 @Service
 public class BookService extends BaseService {
     private final BookRepository _bookRepository;
-
     private final SubCategoryRepository _subCategoryRepository;
-
     private final ModelMapper _modelMapper;
 
     public BookService(BookRepository bookRepository, SubCategoryRepository subCategoryRepository, ModelMapper modelMapper) {
@@ -28,11 +26,12 @@ public class BookService extends BaseService {
     }
 
     public List<BookOutputDto> GetBooks(Long subCategoryId) {
-        List<BookOutputDto> outputDto = new ArrayList<>();
+        var outputDto = new ArrayList<BookOutputDto>();
 
         var subCategory = _subCategoryRepository.findById(subCategoryId).orElse(null);
-        if (subCategory == null)
+        if (subCategory == null) {
             throw new BookStoreException(BookStoreFaults.SubCategoryNotExists);
+        }
 
         var books = subCategory.getBooks();
         for (Book book : books) {
@@ -53,8 +52,9 @@ public class BookService extends BaseService {
 
     public void AddBook(BookInputDto inputDto) {
         var subCategory = _subCategoryRepository.findById(inputDto.getSubCategoryId()).orElse(null);
-        if (subCategory == null)
+        if (subCategory == null) {
             throw new BookStoreException(BookStoreFaults.SubCategoryNotExists);
+        }
 
         var book = _modelMapper.map(inputDto, Book.class);
         subCategory.AddBook(book);
@@ -69,11 +69,11 @@ public class BookService extends BaseService {
         }
 
         var subCategory = _subCategoryRepository.findById(inputDto.getSubCategoryId()).orElse(null);
-        if (subCategory == null)
+        if (subCategory == null) {
             throw new BookStoreException(BookStoreFaults.SubCategoryNotExists);
+        }
 
         _modelMapper.map(inputDto, book);
-
         book.setSubCategory(subCategory);
 
         _bookRepository.save(book);

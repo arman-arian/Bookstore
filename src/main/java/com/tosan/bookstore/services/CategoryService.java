@@ -18,7 +18,6 @@ import java.util.List;
 public class CategoryService extends BaseService {
     private final CategoryRepository _categoryRepository;
     private final SubCategoryRepository _subCategoryRepository;
-
     private final ModelMapper _modelMapper;
 
     public CategoryService(

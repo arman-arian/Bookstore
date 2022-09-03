@@ -40,7 +40,7 @@ public class UserService extends BaseService {
     }
 
     public List<UserOutputDto> GetUsers() {
-        final List<UserOutputDto> outputDto = new ArrayList<>();
+        var outputDto = new ArrayList<UserOutputDto>();
         var users = (List<User>) _userRepository.findAll();
         for (var user : users) {
             outputDto.add(_modelMapper.map(user, UserOutputDto.class));
