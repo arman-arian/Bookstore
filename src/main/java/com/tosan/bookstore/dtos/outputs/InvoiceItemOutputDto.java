@@ -15,7 +15,7 @@ public class InvoiceItemOutputDto extends BaseOutputDto {
     private String createdBy;
     private LocalDateTime lastModifiedDate;
     private String lastModifiedBy;
-    private Boolean deleted = false;
+    private Boolean deleted;
     private PaymentType paymentType;
     private Long price;
     private Integer fromDate;

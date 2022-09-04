@@ -1,7 +1,7 @@
 package com.tosan.bookstore.services;
 
 import com.tosan.bookstore.daos.InvoiceRepository;
-import com.tosan.bookstore.dtos.outputs.InvoiceItemOutputDto;
+import com.tosan.bookstore.dtos.outputs.*;
 import com.tosan.bookstore.models.InvoiceState;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,12 @@ public class InvoiceService extends BaseService {
         this._modelMapper = modelMapper;
     }
 
-    public List<InvoiceItemOutputDto> GetDraftInvoice() {
+    public List<InvoiceItemOutputDto> GetDraftInvoice(Long userId) {
         var outputDto = new ArrayList<InvoiceItemOutputDto>();
-        var invoice = _invoiceRepository.findByState(InvoiceState.Draft);
+        var invoice = _invoiceRepository.findByUserIdAndState(userId, InvoiceState.Draft);
+        if(invoice == null)
+            return outputDto;
+
         for (var invoiceItem : invoice.getInvoiceItems()) {
             outputDto.add(_modelMapper.map(invoiceItem, InvoiceItemOutputDto.class));
         }
