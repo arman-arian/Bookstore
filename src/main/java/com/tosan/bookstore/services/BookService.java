@@ -41,6 +41,17 @@ public class BookService extends BaseService {
         return outputDto;
     }
 
+    public List<BookOutputDto> SearchBooks(String searchTitle) {
+        var outputDto = new ArrayList<BookOutputDto>();
+
+        var books = _bookRepository.findByTitleLike(searchTitle);
+        for (Book book : books) {
+            outputDto.add(_modelMapper.map(book, BookOutputDto.class));
+        }
+
+        return outputDto;
+    }
+
     public BookOutputDto GetBook(Long id) {
         var book = _bookRepository.findById(id).orElse(null);
         if (book == null) {
