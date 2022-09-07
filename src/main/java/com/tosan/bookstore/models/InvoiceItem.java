@@ -43,5 +43,4 @@ public class InvoiceItem extends BaseEntity {
     public InvoiceItem(Long id) {
         this.setId(id);
     }
-
 }

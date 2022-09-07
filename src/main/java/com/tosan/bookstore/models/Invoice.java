@@ -44,8 +44,4 @@ public class Invoice extends BaseEntity {
     {
         getInvoiceItems().remove(invoiceItem);
     }
-
-    public void removeInvoiceItem(Long invoiceItemId) {
-        getInvoiceItems().remove(new InvoiceItem(invoiceItemId));
-    }
 }
