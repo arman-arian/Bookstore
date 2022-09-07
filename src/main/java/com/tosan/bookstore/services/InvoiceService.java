@@ -1,8 +1,11 @@
 package com.tosan.bookstore.services;
 
 import com.tosan.bookstore.daos.InvoiceRepository;
+import com.tosan.bookstore.dtos.inputs.InvoiceItemInputDto;
 import com.tosan.bookstore.dtos.outputs.*;
-import com.tosan.bookstore.models.InvoiceState;
+import com.tosan.bookstore.exceptions.BookStoreException;
+import com.tosan.bookstore.exceptions.BookStoreFaults;
+import com.tosan.bookstore.models.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +22,22 @@ public class InvoiceService extends BaseService {
         this._modelMapper = modelMapper;
     }
 
-    public List<InvoiceItemOutputDto> GetDraftInvoice(Long userId) {
+    public List<InvoiceOutputDto> GetInvoices(Long userId) {
+        var outputDto = new ArrayList<InvoiceOutputDto>();
+        var invoices = _invoiceRepository.findByUserId(userId);
+        for (var invoice : invoices) {
+            outputDto.add(_modelMapper.map(invoice, InvoiceOutputDto.class));
+        }
+
+        return outputDto;
+    }
+
+    public List<InvoiceItemOutputDto> GetInvoiceItems(Long invoiceId) {
         var outputDto = new ArrayList<InvoiceItemOutputDto>();
-        var invoice = _invoiceRepository.findByUserIdAndState(userId, InvoiceState.Draft);
-        if(invoice == null)
-            return outputDto;
+        var invoice = _invoiceRepository.findById(invoiceId).orElse(null);
+        if (invoice == null) {
+            throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
+        }
 
         for (var invoiceItem : invoice.getInvoiceItems()) {
             outputDto.add(_modelMapper.map(invoiceItem, InvoiceItemOutputDto.class));
@@ -32,24 +46,52 @@ public class InvoiceService extends BaseService {
         return outputDto;
     }
 
-    public void GetInvoices() {
+    public List<InvoiceItemOutputDto> GetDraftInvoice(Long userId) {
+        var outputDto = new ArrayList<InvoiceItemOutputDto>();
+        var invoice = _invoiceRepository.findByUserIdAndState(userId, InvoiceState.Draft).orElse(null);
+        if (invoice == null)
+            return outputDto;
+        for (var invoiceItem : invoice.getInvoiceItems()) {
+            outputDto.add(_modelMapper.map(invoiceItem, InvoiceItemOutputDto.class));
+        }
+
+        return outputDto;
     }
 
-    public void GetInvoiceWithItems() {
+    public void AddToDraftInvoice(InvoiceItemInputDto inputDto) {
+        var userRef = new User(inputDto.getUserId());
+        var bookRef = new Book(inputDto.getBookId());
+
+        var invoiceItem = _modelMapper.map(inputDto, InvoiceItem.class);
+        invoiceItem.setUser(userRef);
+        invoiceItem.setBook(bookRef);
+
+        var draftInvoice = _invoiceRepository
+                .findByUserIdAndState(inputDto.getUserId(), InvoiceState.Draft).orElse(null);
+        if(draftInvoice != null) {
+            draftInvoice.addInvoiceItem(invoiceItem);
+            _invoiceRepository.save(draftInvoice);
+            return;
+        }
+
+        var newInvoice = new Invoice();
+        newInvoice.setUser(userRef);
+        newInvoice.setState(InvoiceState.Draft);
+        newInvoice.setTotalAmount(0L);
+        newInvoice.addInvoiceItem(invoiceItem);
+
+        _invoiceRepository.save(newInvoice);
     }
 
-    public void AddInvoice() {
-    }
+    public void DeleteFromDraftInvoice(Long invoiceId, Long invoiceItemId) {
+        var invoice = _invoiceRepository.findById(invoiceId).orElse(null);
+        if (invoice == null) {
+            throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
+        }
 
-    public void AddInvoiceItem() {
-    }
+        var invoiceItemRef = new InvoiceItem(invoiceItemId);
+        invoice.removeInvoiceItem(invoiceItemRef);
 
-    public void DeleteInvoice() {
-    }
-
-    public void DeleteInvoiceItem() {
-    }
-
-    public void UpdateInvoiceItem() {
+        _invoiceRepository.save(invoice);
     }
 }

@@ -36,6 +36,16 @@ public class Invoice extends BaseEntity {
     private Set<InvoiceItem> invoiceItems = new HashSet<>();
 
     public void addInvoiceItem(InvoiceItem invoiceItem) {
+        invoiceItem.setInvoice(this);
         getInvoiceItems().add(invoiceItem);
+    }
+
+    public void removeInvoiceItem(InvoiceItem invoiceItem)
+    {
+        getInvoiceItems().remove(invoiceItem);
+    }
+
+    public void removeInvoiceItem(Long invoiceItemId) {
+        getInvoiceItems().remove(new InvoiceItem(invoiceItemId));
     }
 }

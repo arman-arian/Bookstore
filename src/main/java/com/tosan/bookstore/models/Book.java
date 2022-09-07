@@ -38,6 +38,16 @@ public class Book extends BaseEntity {
     @JoinColumn(name = "sub_category_id", nullable = false)
     private SubCategory subCategory;
 
+    public Book()
+    {
+
+    }
+
+    public Book(Long id)
+    {
+        this.setId(id);
+    }
+
     @Override
     public String toString() {
         return String.format("%s by %s", getTitle(), getAuthor());

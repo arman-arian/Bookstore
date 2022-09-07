@@ -12,7 +12,9 @@ public enum BookStoreFaults {
     CategoryNotExists("Category is not found"),
     SubCategoryNotExists("SubCategory is not found"),
     BookNotExists("Book is not found"),
+    InvoiceNotExists("Invoice is not found"),
     UnknownError("");
+
     private final String description;
 
     BookStoreFaults(String description) {

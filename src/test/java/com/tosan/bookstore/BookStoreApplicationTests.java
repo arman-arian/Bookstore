@@ -1,44 +1,57 @@
 package com.tosan.bookstore;
 
-import com.tosan.bookstore.services.CategoryService;
-import com.tosan.bookstore.utils.dates.PersianDate;
+import com.tosan.bookstore.dtos.inputs.*;
+import com.tosan.bookstore.models.PaymentType;
+import com.tosan.bookstore.services.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Locale;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class BookStoreApplicationTests {
-    @Test
-    void contextLoad() {
-       // var result = PersianDate.now().toString("D");
-    }
-
-//    @Test
-//    void testHashPassword() {
-//        PasswordEncoder _passwordEncoder = new BCryptPasswordEncoder();
-//        var result = _passwordEncoder.encode("12345");
-//    }
-
     @Autowired
     public CategoryService categoryService;
+    @Autowired
+    public InvoiceService invoiceService;
+    public PasswordEncoder passwordEncoder;
+
 
     @Test
-    void TestLoadCategories()
-    {
-       var cats = categoryService.GetAllCategories();
-       var x = cats.get(0).getId();
+    void contextLoad() {
+        passwordEncoder = new BCryptPasswordEncoder();
     }
 
     @Test
-    void TestMessages()
+    void testHashPassword() {
+        var hashedPassword = passwordEncoder.encode("12345");
+        assertThat(hashedPassword).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    void testLoadCategories()
     {
-//        CustomMessageSource messageSource = new CustomMessageSource();
-//        var msg = messageSource.getMessage("test", null, Locale.getDefault());
+       var cats = categoryService.GetAllCategories();
+       var id = cats.get(0).getId();
+        assertThat(id).isGreaterThanOrEqualTo(0);
+    }
+
+    @Test
+    void testAddDraftInvoice()
+    {
+        var invoice = new InvoiceItemInputDto();
+        invoice.setUserId(1L);
+        invoice.setFromDate(14000101);
+        invoice.setToDate(14010101);
+        invoice.setPaymentType(PaymentType.Buy);
+        invoice.setPrice(1000L);
+        invoice.setBookId(1L);
+        invoiceService.AddToDraftInvoice(invoice);
+
+        var invoices = invoiceService.GetInvoices(invoice.getUserId());
+        assertThat(invoices.size()).isGreaterThan(0);
     }
 
 }

@@ -36,4 +36,13 @@ public class User extends BaseEntity {
 
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         private Set<Invoice> invoices = new HashSet<>();
+
+        public User()
+        {
+
+        }
+
+        public User(Long id) {
+                setId(id);
+        }
 }

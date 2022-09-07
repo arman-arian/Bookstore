@@ -36,4 +36,12 @@ public class InvoiceItem extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "book_Id", nullable = false)
     private Book book;
+
+    public InvoiceItem() {
+    }
+
+    public InvoiceItem(Long id) {
+        this.setId(id);
+    }
+
 }
