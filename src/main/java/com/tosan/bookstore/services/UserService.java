@@ -31,8 +31,8 @@ public class UserService extends BaseService {
         return EnumUtils.GetEnumNames(UserType.class);
     }
 
-    public UserOutputDto GetUser(Long id) {
-        var user = _userRepository.findById(id).orElse(null);
+    public UserOutputDto GetUser(Long userId) {
+        var user = _userRepository.findById(userId).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -129,8 +129,8 @@ public class UserService extends BaseService {
         _userRepository.save(user);
     }
 
-    public void ActiveUser(Long id) {
-        var user = _userRepository.findById(id).orElse(null);
+    public void ActiveUser(Long userId) {
+        var user = _userRepository.findById(userId).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -139,8 +139,8 @@ public class UserService extends BaseService {
         _userRepository.save(user);
     }
 
-    public void DeActiveUser(Long id) {
-        var user = _userRepository.findById(id).orElse(null);
+    public void DeActiveUser(Long userId) {
+        var user = _userRepository.findById(userId).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
@@ -149,8 +149,8 @@ public class UserService extends BaseService {
         _userRepository.save(user);
     }
 
-    public void AddUserMembership(Long id) {
-        var user = _userRepository.findById(id).orElse(null);
+    public void AddUserMembership(Long userId) {
+        var user = _userRepository.findById(userId).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }

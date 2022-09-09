@@ -52,8 +52,8 @@ public class BookService extends BaseService {
         return outputDto;
     }
 
-    public BookOutputDto GetBook(Long id) {
-        var book = _bookRepository.findById(id).orElse(null);
+    public BookOutputDto GetBook(Long bookId) {
+        var book = _bookRepository.findById(bookId).orElse(null);
         if (book == null) {
             throw new BookStoreException(BookStoreFaults.BookNotExists);
         }
@@ -79,7 +79,8 @@ public class BookService extends BaseService {
             throw new BookStoreException(BookStoreFaults.BookNotExists);
         }
 
-        var subCategory = _subCategoryRepository.findById(inputDto.getSubCategoryId()).orElse(null);
+        var subCategory = _subCategoryRepository
+                .findById(inputDto.getSubCategoryId()).orElse(null);
         if (subCategory == null) {
             throw new BookStoreException(BookStoreFaults.SubCategoryNotExists);
         }
@@ -90,8 +91,8 @@ public class BookService extends BaseService {
         _bookRepository.save(book);
     }
 
-    public void DeleteBook(Long id) {
-        var book = _bookRepository.findById(id).orElse(null);
+    public void DeleteBook(Long bookId) {
+        var book = _bookRepository.findById(bookId).orElse(null);
         if (book == null) {
             throw new BookStoreException(BookStoreFaults.BookNotExists);
         }
