@@ -38,12 +38,9 @@ public class InvoiceService extends BaseService {
 
     public List<InvoiceItemOutputDto> GetInvoiceItems(Long invoiceId) {
         var outputDto = new ArrayList<InvoiceItemOutputDto>();
-        var invoice = _invoiceRepository.findById(invoiceId).orElse(null);
-        if (invoice == null) {
-            throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
-        }
 
-        for (var invoiceItem : invoice.getInvoiceItems()) {
+        var invoiceItems = _invoiceItemRepository.findByInvoiceId(invoiceId);
+        for (var invoiceItem : invoiceItems) {
             outputDto.add(_modelMapper.map(invoiceItem, InvoiceItemOutputDto.class));
         }
 
@@ -97,7 +94,8 @@ public class InvoiceService extends BaseService {
     }
 
     public void UpdateDraftInvoiceItem(InvoiceItemInputDto inputDto) {
-        var invoiceItem = _invoiceItemRepository.findById(inputDto.getInvoiceItemId()).orElse(null);
+        var invoiceItem = _invoiceItemRepository
+                .findById(inputDto.getInvoiceItemId()).orElse(null);
         if (invoiceItem == null) {
             throw new BookStoreException(BookStoreFaults.InvoiceItemNotExists);
         }
@@ -113,7 +111,7 @@ public class InvoiceService extends BaseService {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
-        if(invoice.getState() != InvoiceState.Draft) {
+        if (invoice.getState() != InvoiceState.Draft) {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
@@ -129,7 +127,7 @@ public class InvoiceService extends BaseService {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
-        if(invoice.getState() == InvoiceState.Paid) {
+        if (invoice.getState() == InvoiceState.Paid) {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
@@ -144,7 +142,7 @@ public class InvoiceService extends BaseService {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
-        if(invoice.getState() == InvoiceState.Paid) {
+        if (invoice.getState() == InvoiceState.Paid) {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
@@ -159,7 +157,7 @@ public class InvoiceService extends BaseService {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
-        if(invoice.getState() == InvoiceState.Paid) {
+        if (invoice.getState() == InvoiceState.Paid) {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
@@ -174,7 +172,7 @@ public class InvoiceService extends BaseService {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
-        if(invoice.getState() != InvoiceState.Issued) {
+        if (invoice.getState() != InvoiceState.Issued) {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 

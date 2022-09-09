@@ -58,12 +58,8 @@ public class CategoryService extends BaseService {
     public List<SubCategoryOutputDto> GetSubCategories(Long categoryId) {
         var outputDto = new ArrayList<SubCategoryOutputDto>();
 
-        var category = _categoryRepository.findById(categoryId).orElse(null);
-        if (category == null) {
-            throw new BookStoreException(BookStoreFaults.CategoryNotExists);
-        }
-
-        for (var subCategory : category.getSubCategories()) {
+        var subCategories = _subCategoryRepository.findByCategoryId(categoryId);
+        for (var subCategory : subCategories) {
             outputDto.add(_modelMapper.map(subCategory, SubCategoryOutputDto.class));
         }
 
