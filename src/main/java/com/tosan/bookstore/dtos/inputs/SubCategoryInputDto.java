@@ -6,7 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CategoryInputDto extends BaseInputDto {
-    private Long categoryId;
+public class SubCategoryInputDto {
+    private Long subCategoryId;
     private String name;
+    private Long categoryId;
 }

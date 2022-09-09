@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -46,12 +49,25 @@ class BookStoreApplicationTests {
         invoice.setFromDate(14000101);
         invoice.setToDate(14010101);
         invoice.setPaymentType(PaymentType.Buy);
-        invoice.setPrice(1000L);
+        invoice.setPrice(BigDecimal.valueOf(1000));
         invoice.setBookId(1L);
         invoiceService.AddToDraftInvoice(invoice);
 
         var invoices = invoiceService.GetInvoices(invoice.getUserId());
         assertThat(invoices.size()).isGreaterThan(0);
     }
+
+    @Test
+    void testUpdateSubCategory()
+    {
+        var subCat = new SubCategoryInputDto();
+        subCat.setName("Test");
+        subCat.setSubCategoryId(1L);
+        subCat.setCategoryId(1L);
+        categoryService.UpdateSubCategory(subCat);
+
+        var subCat2 = categoryService.GetSubCategories(1L);
+    }
+
 
 }

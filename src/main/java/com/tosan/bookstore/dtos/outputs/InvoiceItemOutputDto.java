@@ -2,6 +2,8 @@ package com.tosan.bookstore.dtos.outputs;
 
 import com.tosan.bookstore.models.PaymentType;
 import lombok.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class InvoiceItemOutputDto extends BaseOutputDto {
     private String lastModifiedBy;
     private Boolean deleted;
     private PaymentType paymentType;
-    private Long price;
+    private BigDecimal price;
     private Integer fromDate;
     private Integer toDate;
     private String description;

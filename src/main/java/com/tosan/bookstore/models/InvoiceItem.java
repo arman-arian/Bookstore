@@ -3,6 +3,7 @@ package com.tosan.bookstore.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Invoice_Items")
@@ -13,8 +14,8 @@ public class InvoiceItem extends BaseEntity {
     @Enumerated(EnumType.ORDINAL)
     private PaymentType paymentType;
 
-    @Column(nullable = false)
-    private Long price;
+    @Column(nullable = false, precision = 7, scale = 2)
+    private BigDecimal price;
 
     @Column(name = "from_date", nullable = false)
     private Integer fromDate;

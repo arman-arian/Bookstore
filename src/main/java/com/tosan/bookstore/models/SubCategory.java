@@ -24,4 +24,15 @@ public class SubCategory extends BaseEntity {
     public void AddBook(Book book) {
         getBooks().add(book);
     }
+
+    public SubCategory()
+    {
+
+    }
+
+    public SubCategory(Long id)
+    {
+        setId(id);
+    }
+
 }

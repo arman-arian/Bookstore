@@ -18,11 +18,15 @@ public class Category extends BaseEntity {
     private Set<SubCategory> subCategories = new HashSet<>();
 
     public void addSubCategory(SubCategory subCategory) {
+        subCategory.setCategory(this);
         getSubCategories().add(subCategory);
     }
 
-    public boolean hasSubCategories()
-    {
+    public void removeSubCategory(SubCategory subCategory) {
+        getSubCategories().remove(subCategory);
+    }
+
+    public boolean hasSubCategories() {
         return getSubCategories().size() > 0;
     }
 }

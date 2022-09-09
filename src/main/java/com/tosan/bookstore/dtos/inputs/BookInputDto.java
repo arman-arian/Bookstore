@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class BookInputDto extends BaseInputDto {
-    private Long id;
+    private Long bookId;
     private String title;
     private String author;
     private String isbn;

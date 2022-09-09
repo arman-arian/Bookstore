@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 public class UserInputDto extends BaseInputDto {
-    private Long id;
+    private Long userId;
     private String username;
     private String password;
     private String name;

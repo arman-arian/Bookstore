@@ -2,12 +2,10 @@ package com.tosan.bookstore.services;
 
 import com.tosan.bookstore.daos.CategoryRepository;
 import com.tosan.bookstore.daos.SubCategoryRepository;
-import com.tosan.bookstore.dtos.inputs.CategoryInputDto;
+import com.tosan.bookstore.dtos.inputs.*;
 import com.tosan.bookstore.dtos.outputs.*;
-import com.tosan.bookstore.exceptions.BookStoreException;
-import com.tosan.bookstore.exceptions.BookStoreFaults;
-import com.tosan.bookstore.models.Category;
-import com.tosan.bookstore.models.SubCategory;
+import com.tosan.bookstore.exceptions.*;
+import com.tosan.bookstore.models.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -60,12 +58,12 @@ public class CategoryService extends BaseService {
     public List<SubCategoryOutputDto> GetSubCategories(Long categoryId) {
         var outputDto = new ArrayList<SubCategoryOutputDto>();
 
-        var categories = _categoryRepository.findById(categoryId).orElse(null);
-        if (categories == null) {
+        var category = _categoryRepository.findById(categoryId).orElse(null);
+        if (category == null) {
             throw new BookStoreException(BookStoreFaults.CategoryNotExists);
         }
 
-        for (var subCategory : categories.getSubCategories()) {
+        for (var subCategory : category.getSubCategories()) {
             outputDto.add(_modelMapper.map(subCategory, SubCategoryOutputDto.class));
         }
 
@@ -80,7 +78,7 @@ public class CategoryService extends BaseService {
     }
 
     public void UpdateCategory(CategoryInputDto inputDto) {
-        var category = _categoryRepository.findById(inputDto.getId()).orElse(null);
+        var category = _categoryRepository.findById(inputDto.getCategoryId()).orElse(null);
         if (category == null) {
             throw new BookStoreException(BookStoreFaults.CategoryNotExists);
         }
@@ -98,15 +96,22 @@ public class CategoryService extends BaseService {
         _categoryRepository.delete(category);
     }
 
-    public void AddSubCategory(CategoryInputDto inputDto) {
+    public void AddSubCategory(SubCategoryInputDto inputDto) {
+        var category = _categoryRepository.findById(inputDto.getSubCategoryId()).orElse(null);
+        if (category == null) {
+            throw new BookStoreException(BookStoreFaults.CategoryNotExists);
+        }
+
         var subCategory = new SubCategory();
         subCategory.setName(inputDto.getName());
 
-        _subCategoryRepository.save(subCategory);
+        category.addSubCategory(subCategory);
+
+        _categoryRepository.save(category);
     }
 
-    public void UpdateSubCategory(CategoryInputDto inputDto) {
-        var subCategory = _subCategoryRepository.findById(inputDto.getId()).orElse(null);
+    public void UpdateSubCategory(SubCategoryInputDto inputDto) {
+        var subCategory = _subCategoryRepository.findById(inputDto.getSubCategoryId()).orElse(null);
         if (subCategory == null) {
             throw new BookStoreException(BookStoreFaults.SubCategoryNotExists);
         }

@@ -58,7 +58,7 @@ public class UserService extends BaseService {
     }
 
     public void UpdateUser(UserInputDto inputDto) {
-        var user = _userRepository.findById(inputDto.getId()).orElse(null);
+        var user = _userRepository.findById(inputDto.getUserId()).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }

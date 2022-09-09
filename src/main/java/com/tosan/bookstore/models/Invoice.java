@@ -3,6 +3,7 @@ package com.tosan.bookstore.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,8 +19,8 @@ public class Invoice extends BaseEntity {
     @Column(name = "paid_date")
     private LocalDate paidDate;
 
-    @Column(name = "total_amount", nullable = false)
-    private Long totalAmount;
+    @Column(name = "total_amount", nullable = false, precision = 7, scale = 2)
+    private BigDecimal totalAmount;
 
     @Column(nullable = false)
     @Enumerated(EnumType.ORDINAL)

@@ -74,7 +74,7 @@ public class BookService extends BaseService {
     }
 
     public void UpdateBook(BookInputDto inputDto) {
-        var book = _bookRepository.findById(inputDto.getId()).orElse(null);
+        var book = _bookRepository.findById(inputDto.getBookId()).orElse(null);
         if (book == null) {
             throw new BookStoreException(BookStoreFaults.BookNotExists);
         }

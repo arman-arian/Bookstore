@@ -3,6 +3,7 @@ package com.tosan.bookstore.dtos.outputs;
 import com.tosan.bookstore.models.InvoiceState;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -20,7 +21,7 @@ public class InvoiceOutputDto extends BaseOutputDto {
     private Boolean deleted = false;
     private LocalDate issuedDate;
     private LocalDate paidDate;
-    private Long totalAmount;
+    private BigDecimal totalAmount;
     private InvoiceState state;
     private String description;
 }

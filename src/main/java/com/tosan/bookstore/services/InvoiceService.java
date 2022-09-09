@@ -1,5 +1,6 @@
 package com.tosan.bookstore.services;
 
+import com.tosan.bookstore.daos.InvoiceItemRepository;
 import com.tosan.bookstore.daos.InvoiceRepository;
 import com.tosan.bookstore.dtos.inputs.*;
 import com.tosan.bookstore.dtos.outputs.*;
@@ -8,6 +9,7 @@ import com.tosan.bookstore.models.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +18,11 @@ import java.util.List;
 public class InvoiceService extends BaseService {
     private final ModelMapper _modelMapper;
     private final InvoiceRepository _invoiceRepository;
+    private final InvoiceItemRepository _invoiceItemRepository;
 
-    public InvoiceService(InvoiceRepository invoiceRepository, ModelMapper modelMapper) {
+    public InvoiceService(InvoiceRepository invoiceRepository, InvoiceItemRepository invoiceItemRepository, ModelMapper modelMapper) {
         this._invoiceRepository = invoiceRepository;
+        this._invoiceItemRepository = invoiceItemRepository;
         this._modelMapper = modelMapper;
     }
 
@@ -77,27 +81,39 @@ public class InvoiceService extends BaseService {
         var newInvoice = new Invoice();
         newInvoice.setUser(userRef);
         newInvoice.setState(InvoiceState.Draft);
-        newInvoice.setTotalAmount(0L);
+        newInvoice.setTotalAmount(BigDecimal.ZERO);
         newInvoice.addInvoiceItem(invoiceItem);
 
         _invoiceRepository.save(newInvoice);
     }
 
-    public void DeleteFromDraftInvoice(Long invoiceId, Long invoiceItemId) {
-        var invoice = _invoiceRepository.findById(invoiceId).orElse(null);
-        if (invoice == null) {
-            throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
+    public void DeleteFromDraftInvoice(Long invoiceItemId) {
+        var invoiceItem = _invoiceItemRepository.findById(invoiceItemId).orElse(null);
+        if (invoiceItem == null) {
+            throw new BookStoreException(BookStoreFaults.InvoiceItemNotExists);
         }
 
-        var invoiceItemRef = new InvoiceItem(invoiceItemId);
-        invoice.removeInvoiceItem(invoiceItemRef);
+        _invoiceItemRepository.delete(invoiceItem);
+    }
 
-        _invoiceRepository.save(invoice);
+    public void UpdateDraftInvoiceItem(InvoiceItemInputDto inputDto) {
+        var invoiceItem = _invoiceItemRepository.findById(inputDto.getInvoiceItemId()).orElse(null);
+        if (invoiceItem == null) {
+            throw new BookStoreException(BookStoreFaults.InvoiceItemNotExists);
+        }
+
+        _modelMapper.map(inputDto, invoiceItem);
+
+        _invoiceItemRepository.save(invoiceItem);
     }
 
     public void IssueInvoice(Long invoiceId) {
         var invoice = _invoiceRepository.findById(invoiceId).orElse(null);
         if (invoice == null) {
+            throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
+        }
+
+        if(invoice.getState() != InvoiceState.Draft) {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
@@ -113,6 +129,10 @@ public class InvoiceService extends BaseService {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
+        if(invoice.getState() == InvoiceState.Paid) {
+            throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
+        }
+
         invoice.setState(InvoiceState.Cancelled);
 
         _invoiceRepository.save(invoice);
@@ -121,6 +141,10 @@ public class InvoiceService extends BaseService {
     public void DeleteInvoice(Long invoiceId) {
         var invoice = _invoiceRepository.findById(invoiceId).orElse(null);
         if (invoice == null) {
+            throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
+        }
+
+        if(invoice.getState() == InvoiceState.Paid) {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
@@ -135,6 +159,10 @@ public class InvoiceService extends BaseService {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
+        if(invoice.getState() == InvoiceState.Paid) {
+            throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
+        }
+
         invoice.setState(InvoiceState.Expired);
 
         _invoiceRepository.save(invoice);
@@ -146,7 +174,11 @@ public class InvoiceService extends BaseService {
             throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
         }
 
-        invoice.setState(InvoiceState.Expired);
+        if(invoice.getState() != InvoiceState.Issued) {
+            throw new BookStoreException(BookStoreFaults.InvoiceNotExists);
+        }
+
+        invoice.setState(InvoiceState.Paid);
         invoice.setPaidDate(LocalDate.now());
 
         _invoiceRepository.save(invoice);
