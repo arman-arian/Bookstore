@@ -1,7 +1,6 @@
 package com.tosan.bookstore.services;
 
-import com.tosan.bookstore.daos.InvoiceItemRepository;
-import com.tosan.bookstore.daos.InvoiceRepository;
+import com.tosan.bookstore.daos.*;
 import com.tosan.bookstore.dtos.inputs.*;
 import com.tosan.bookstore.dtos.outputs.*;
 import com.tosan.bookstore.exceptions.*;
