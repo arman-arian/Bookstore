@@ -1,5 +1,6 @@
 package com.tosan.bookstore.dtos.outputs;
 
+import com.tosan.bookstore.models.UserState;
 import com.tosan.bookstore.models.UserType;
 import lombok.*;
 
@@ -21,5 +22,5 @@ public class UserOutputDto extends BaseOutputDto  {
     private String email;
     private UserType userType;
     private LocalDateTime lastLoginDate;
-    private Boolean active;
+    private UserState userState;
 }

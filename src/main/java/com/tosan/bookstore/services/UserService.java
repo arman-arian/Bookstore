@@ -36,6 +36,7 @@ public class UserService extends BaseService {
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
+
         return _modelMapper.map(user, UserOutputDto.class);
     }
 
@@ -52,7 +53,7 @@ public class UserService extends BaseService {
     public void Register(UserInputDto inputDto) {
         var user = _modelMapper.map(inputDto, User.class);
         user.setPassword(_passwordEncoder.encode(inputDto.getPassword()));
-        user.setActive(true);
+        user.setUserState(UserState.Enabled);
 
         _userRepository.save(user);
     }
@@ -63,7 +64,7 @@ public class UserService extends BaseService {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
-        if (!user.getActive()) {
+        if (user.getUserState() != UserState.Enabled) {
             throw new BookStoreException(BookStoreFaults.UserNotActive);
         }
 
@@ -74,12 +75,12 @@ public class UserService extends BaseService {
     }
 
     public LoginOutputDto Login(LoginInputDto inputDto) {
-        var user = _userRepository.findByUsername(inputDto.getUsername());
+        var user = _userRepository.findByUsername(inputDto.getUsername()).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
-        if (!user.getActive()) {
+        if (user.getUserState() != UserState.Enabled) {
             throw new BookStoreException(BookStoreFaults.UserNotActive);
         }
 
@@ -98,12 +99,12 @@ public class UserService extends BaseService {
             throw new BookStoreException(BookStoreFaults.UserSameOldAndNewPassword);
         }
 
-        var user = _userRepository.findByUsername(inputDto.getUsername());
+        var user = _userRepository.findByUsername(inputDto.getUsername()).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
-        if (!user.getActive()) {
+        if (user.getUserState() != UserState.Enabled) {
             throw new BookStoreException(BookStoreFaults.UserNotActive);
         }
 
@@ -116,12 +117,12 @@ public class UserService extends BaseService {
     }
 
     public void ResetPassword(ResetPasswordInputDto inputDto) {
-        var user = _userRepository.findByUsername(inputDto.getUsername());
+        var user = _userRepository.findByUsername(inputDto.getUsername()).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
-        if (!user.getActive()) {
+        if (user.getUserState() != UserState.Enabled) {
             throw new BookStoreException(BookStoreFaults.UserNotActive);
         }
 
@@ -129,23 +130,25 @@ public class UserService extends BaseService {
         _userRepository.save(user);
     }
 
-    public void ActiveUser(Long userId) {
+    public void LockUser(Long userId) {
         var user = _userRepository.findById(userId).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
-        user.setActive(true);
+        user.lock();
+
         _userRepository.save(user);
     }
 
-    public void DeActiveUser(Long userId) {
+    public void UnLockUser(Long userId) {
         var user = _userRepository.findById(userId).orElse(null);
         if (user == null) {
             throw new BookStoreException(BookStoreFaults.UserNotExists);
         }
 
-        user.setActive(false);
+        user.unlock();
+
         _userRepository.save(user);
     }
 

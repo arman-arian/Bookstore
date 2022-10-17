@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="MyBookStore-Buy Or Rent Books With The Best Price">
+    <meta name="author" content="Arman Hasanpour">
+    <meta name="keyword" content="Book,Book Store,Buy Book,Rent Book">
+    <link rel="icon" href="../static/img/favicon.png">
+    <link rel="apple-touch-icon" href="../static/img/apple-touch-icon.png">
+    <link rel="stylesheet" href="../static/css/public.css">
+    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.min.css">
+    <title>Home</title>
+</head>
+<body class="bg-light">
+<div class="hero">
+    <div class="hero-container">
+        <h1>My BookStore</h1>
+        <h2>Buy Or Rent Books With The Best Price.</h2>
+        <img src="../static/img/home-img.png" alt="My BookStore" />
+        <div class="container text-center">
+	        <a th:href="@{/user/login}" class="btn btn-outline-success btn-block mb-4 me-md-2">Login</a>
+		    <a th:href="@{/user/register}" class="btn btn-outline-success btn-block mb-4">Register</a>
+		</div>
+    </div>
+</div>
+</body>
+</html>

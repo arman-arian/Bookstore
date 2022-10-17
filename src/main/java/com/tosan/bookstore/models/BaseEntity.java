@@ -21,7 +21,7 @@ import java.util.Objects;
 @EntityListeners({AuditingEntityListener.class})
 public abstract class BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.PROTECTED)
     private Long id;
 

@@ -1,5 +1,6 @@
 package com.tosan.bookstore;
 
+import com.tosan.bookstore.dtos.IdDto;
 import com.tosan.bookstore.dtos.inputs.*;
 import com.tosan.bookstore.models.PaymentType;
 import com.tosan.bookstore.services.*;
@@ -8,8 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
+import java.util.Set;
+
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -69,5 +77,13 @@ class BookStoreApplicationTests {
         var subCat2 = categoryService.GetSubCategories(1L);
     }
 
+    @Test
+    void validateInput() {
+        var input = new IdDto();
+        input.setId(-100L);
 
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        var validator = factory.getValidator();
+        Set<ConstraintViolation<IdDto>> violations = validator.validate(input);
+    }
 }

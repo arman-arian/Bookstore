@@ -14,6 +14,8 @@ public enum BookStoreFaults {
     BookNotExists("Book is not found"),
     InvoiceNotExists("Invoice is not found"),
     InvoiceItemNotExists("Invoice item is not found"),
+
+    InvalidArguments("Input arguments are invalid"),
     UnknownError("");
 
     private final String description;
@@ -30,5 +32,10 @@ public enum BookStoreFaults {
     {
         MessageFormat messageFormat = new MessageFormat(getDescription());
         return messageFormat.format(args);
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 }

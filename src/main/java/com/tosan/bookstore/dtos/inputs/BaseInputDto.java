@@ -1,7 +1,7 @@
 package com.tosan.bookstore.dtos.inputs;
 
-import java.io.Serializable;
+import com.tosan.bookstore.dtos.BaseDto;
 
-public abstract class BaseInputDto implements Serializable {
+public abstract class BaseInputDto extends BaseDto {
 
 }

@@ -10,20 +10,17 @@ public final class PersianDate implements Serializable, Comparable<PersianDate> 
     private final LocalDate _dateTime;
 
     @Serial
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
-    public PersianDate()
-    {
+    public PersianDate() {
         _dateTime = LocalDate.MIN;
     }
 
-    public PersianDate(LocalDate dateTime)
-    {
+    public PersianDate(LocalDate dateTime) {
         _dateTime = LocalDate.of(dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth());
     }
 
-    public PersianDate(int year, int month, int day)
-    {
+    public PersianDate(int year, int month, int day) {
         var gDate = jalali_to_gregorian(year, month, day);
         _dateTime = LocalDate.of(gDate[0], gDate[1], gDate[2]);
     }
@@ -62,19 +59,16 @@ public final class PersianDate implements Serializable, Comparable<PersianDate> 
         return PersianDateFormat.Format(jDate[0], jDate[1], jDate[2], dayOfWeek, monthName, format);
     }
 
-    public int toInteger()
-    {
+    public int toInteger() {
         var jDate = gregorian_to_jalali(_dateTime.getYear(), _dateTime.getMonthValue(), _dateTime.getDayOfMonth());
         return Integer.parseInt(PersianDateFormat.Format(jDate));
     }
 
-    private LocalDate toLocalDate()
-    {
+    private LocalDate toLocalDate() {
         return LocalDate.of(_dateTime.getYear(), _dateTime.getMonthValue(), _dateTime.getDayOfMonth());
     }
 
-    public static PersianDate now()
-    {
+    public static PersianDate now() {
         return new PersianDate(LocalDate.now());
     }
 
@@ -82,7 +76,7 @@ public final class PersianDate implements Serializable, Comparable<PersianDate> 
      * Author: JDF.SCR.IR =>> Download Full Version :  <a href="http://jdf.scr.ir/jdf">...</a> License: GNU/LGPL _ Open
      * Source & Free :: Version: 2.80 : [2020=1399]
      */
-    private static int [] gregorian_to_jalali(int gy, int gm, int gd) {
+    private static int[] gregorian_to_jalali(int gy, int gm, int gd) {
         int[] out = {
                 (gm > 2) ? (gy + 1) : gy,
                 0,
@@ -115,7 +109,7 @@ public final class PersianDate implements Serializable, Comparable<PersianDate> 
      * Author: JDF.SCR.IR =>> Download Full Version :  <a href="http://jdf.scr.ir/jdf">...</a> License: GNU/LGPL _ Open
      * Source & Free :: Version: 2.80 : [2020=1399]
      */
-    private static int [] jalali_to_gregorian(int jy, int jm, int jd) {
+    private static int[] jalali_to_gregorian(int jy, int jm, int jd) {
         jy += 1595;
         int[] out = {
                 0,
