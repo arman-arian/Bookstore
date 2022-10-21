@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="../../static/css/public.css">
+  <link rel="stylesheet" href="../../static/lib/bootstrap/css/bootstrap.min.css" />
+</head>
+<body class="bg-light">
+<div class="hero">
+  <div class="hero-container">
+    <div class="hero-form">
+      <form action="#" th:action="@{/user/register}" th:object="${userInputDto}"
+            method="post" class="needs-validation" novalidate>
+        <input id="pageErrorState" type="hidden" th:value="${!errors.isEmpty()}">
+        <h3 class="mb-5">Sign Up</h3>
+        <div class="form-outline mb-4 position-relative">
+          <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Name"
+                 autocomplete="off" spellcheck="false" autocapitalize="sentences"
+                 aria-label="Name" aria-describedby="name-tooltip"
+                 tabindex="1" required
+                 th:data-cs-empty-message="#{validation.value.missing.value}"/>
+          <div id="name-tooltip" class="invalid-tooltip"></div>
+        </div>
+        <div class="form-outline mb-4 position-relative">
+          <input type="text" id="username" th:field="*{username}"
+                 class="form-control"
+                 th:classappend="${errors.containsKey('usernameError')}  ? 'is-invalid' : ''"
+                 placeholder="Username" autocomplete="off" spellcheck="false" autocapitalize="none"
+                 aria-label="Username" aria-describedby="username-tooltip"
+                 tabindex="2" required  minlength="6" maxlength="30"
+                 th:data-cs-empty-message="#{validation.value.missing.value}"
+                 th:data-cs-length-message="#{validation.username.invalid.length}"/>
+          <div id="username-tooltip" class="invalid-tooltip"
+               th:text="#{${errors.getOrDefault('usernameError', 'empty')}}"></div>
+        </div>
+        <div class="form-outline mb-4 position-relative">
+          <input type="email" id="email" th:field="*{email}" class="form-control" placeholder="Email"
+                 autocomplete="off" spellcheck="false" autocapitalize="none"
+                 aria-label="Email" aria-describedby="email-tooltip"
+                 tabindex="3" required
+                 th:data-cs-empty-message="#{validation.value.missing.value}"
+                 th:data-cs-invalid-message="#{validation.email.invalid}" />
+          <div id="email-tooltip" class="invalid-tooltip"></div>
+        </div>
+        <div class="form-outline mb-4 position-relative">
+          <input type="password" id="password" th:field="*{password}"
+                 class="form-control"
+                 th:classappend="${errors.containsKey('passwordError')}  ? 'is-invalid' : ''"
+                 placeholder="Password" autocomplete="new-password" spellcheck="false" autocapitalize="none"
+                 aria-label="Password" aria-describedby="password-tooltip"
+                 tabindex="4" required minlength="8" maxlength="30"
+                 th:data-cs-empty-message="#{validation.value.missing.value}"
+                 th:data-cs-length-message="#{validation.password.invalid.length}" />
+          <div id="password-tooltip" class="invalid-tooltip"
+               th:text="#{${errors.getOrDefault('passwordError', 'empty')}}"></div>
+        </div>
+        <div class="form-outline mb-4 position-relative">
+          <input type="password" id="repeatPassword" class="form-control" placeholder="Repeat Password"
+                 autocomplete="off" spellcheck="false" autocapitalize="none"
+                 aria-label="Repeat Password" aria-describedby="repeatPassword-tooltip"
+                 tabindex="5" required
+                 th:data-cs-empty-message="#{validation.value.missing.value}"
+                 th:data-cs-confirm-message="#{validation.password.mismatch}" />
+          <div id="repeatPassword-tooltip" class="invalid-tooltip"></div>
+        </div>
+        <div class="form-check d-flex justify-content-center mb-4">
+          <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck"
+                 aria-describedby="registerCheck" checked required />
+          <label class="form-check-label" for="registerCheck"> I have read and agree to the terms </label>
+        </div>
+        <button type="submit" class="btn btn-outline-success btn-block mb-3">Sign Up</button>
+        <div th:if="${!errors.isEmpty() && errors.containsKey('error')}" class="alert alert-danger">
+          <span th:text="#{${errors.get('error')}}"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="../../static/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="../../static/js/validation.js"></script>
+</body>
+</html>
