@@ -2,6 +2,7 @@ package com.tosan.bookstore.services;
 
 import com.tosan.bookstore.daos.UserRepository;
 import com.tosan.bookstore.models.User;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -68,6 +69,23 @@ public class AuthenticationService extends BaseService implements UserDetailsSer
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public Boolean isUserAuthenticated() {
+        var context = SecurityContextHolder.getContext();
+        if(context == null)
+            return false;
+
+        var authentication = context.getAuthentication();
+        if (authentication == null) {
+            return false;
+        }
+
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            return false;
+        }
+
+        return authentication.isAuthenticated();
     }
 
     public User loadCurrentUser() {

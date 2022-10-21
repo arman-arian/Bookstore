@@ -38,7 +38,7 @@ public final class EnumUtils {
     }
 
     public static Map<Integer, String> GetEnumNames(Class<?> clazz) {
-        Map<Integer, String> enumElementsMap = new HashMap<>();
+        var enumElementsMap = new HashMap<Integer, String>();
         try {
             for (Field field : clazz.getFields()) {
                 field.setAccessible(true);

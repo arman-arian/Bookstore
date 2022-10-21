@@ -57,7 +57,7 @@ public class SecurityConfiguration {
 
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new CustomAuthenticationFailureHandler(_authService);
+        return new CustomAuthenticationFailureHandler2(_authService);
     }
 
     @Bean

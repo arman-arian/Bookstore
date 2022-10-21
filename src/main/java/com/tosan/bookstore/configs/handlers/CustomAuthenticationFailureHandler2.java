@@ -4,26 +4,28 @@ import com.tosan.bookstore.services.AuthenticationService;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 
-public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+public class CustomAuthenticationFailureHandler2 implements AuthenticationFailureHandler {
+
     private final AuthenticationService _authenticationService;
 
-    public CustomAuthenticationFailureHandler(AuthenticationService authenticationService) {
+    public CustomAuthenticationFailureHandler2(AuthenticationService authenticationService) {
         _authenticationService = authenticationService;
     }
 
     @Override
     public void onAuthenticationFailure(
-            final HttpServletRequest request,
-            final HttpServletResponse response,
-            final AuthenticationException exception) throws IOException, ServletException {
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AuthenticationException exception) throws IOException, ServletException {
 
         _authenticationService.logFailedLogin(request.getParameter("username"));
 
@@ -43,10 +45,10 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         } else if (exception instanceof CredentialsExpiredException) {
             error = "auth.credentials.expired";
         }
+        var errors = new HashMap<String, String>();
+        errors.put("error", error);
 
-        var failureUrl = "/user/login?error=" + error;
-        super.setDefaultFailureUrl(failureUrl);
-        super.setUseForward(true);
-        super.onAuthenticationFailure(request, response, exception);
+        request.setAttribute("errors", errors);
+        request.getRequestDispatcher("/user/login").forward(request, response);
     }
 }

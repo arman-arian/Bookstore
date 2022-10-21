@@ -92,7 +92,7 @@ function showCustomErrorMessage(e, errorMessage) {
 }
 
 function isPageValid() {
-    const hasError = document.getElementById("pageStatus");
+    const hasError = document.getElementById("pageErrorState");
     if(hasError != null) {
         return hasError.value === "false";
     }
